@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>Apache Jena</name>
+  <groupId>org.apache.jena</groupId>
+  <artifactId>jena</artifactId>
+  <packaging>pom</packaging>
+  <url>http://jena.apache.org/</url>
+  <version>2.10.1</version>
+
+  <!-- Needed for -Papache-release -->
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>10</version>
+  </parent>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <organization>
+    <name>The Apache Software Foundation</name>
+    <url>http://www.apache.org/</url>
+  </organization>
+
+  <scm>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/jena/tags/jena-2.10.1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jena/tags/jena-2.10.1</developerConnection>
+    <url>https://svn.apache.org/repos/asf/jena/tags/jena-2.10.1</url>
+  </scm>
+
+  <modules>
+    <module>jena-parent</module>
+    <module>jena-iri</module>
+    <module>jena-core</module>
+    <module>jena-arq</module>
+    <module>jena-tdb</module>
+    <module>jena-fuseki</module>
+    <!--
+    <module>jena-sdb</module>
+    <module>jena-larq</module>
+    -->
+    <!-- Convenience modules -->
+    <module>apache-jena-libs</module>
+    <!-- Delivery modules - after build modules --> 
+    <module>apache-jena</module>
+  </modules>
+
+  <mailingLists>
+    <mailingList>
+      <name>Jena Users Mailing List</name>
+      <post>users@jena.apache.org</post>
+      <subscribe>users-subscribe@jena.apache.org</subscribe>
+      <unsubscribe>users-unsubscribe@jena.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/jena-users/</archive>
+      <otherArchives>
+	<otherArchive>http://www.mail-archive.com/users@jena.apache.org/</otherArchive>
+	<otherArchive>http://markmail.org/search/?q=list%3Aorg.apache.jena.users</otherArchive>
+      </otherArchives>
+    </mailingList>
+    <mailingList>
+      <name>Jena Developers Mailing List</name>
+      <post>dev@jena.apache.org</post>
+      <subscribe>dev-subscribe@jena.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@jena.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/jena-dev/</archive>
+      <otherArchives>
+	<otherArchive>http://www.mail-archive.com/dev@jena.apache.org/</otherArchive>
+	<otherArchive>http://markmail.org/search/?q=list%3Aorg.apache.jena.dev</otherArchive>
+      </otherArchives>
+    </mailingList>
+    <mailingList>
+      <name>Jena Commits</name>
+      <post>commits@jena.apache.org</post>
+      <subscribe>commits-subscribe@jena.apache.org</subscribe>
+      <unsubscribe>commits-unsubscribe@jena.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/jena-commits/</archive>
+    </mailingList>
+  </mailingLists>
+  
+
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://issues.apache.org/jira/browse/JENA</url>
+  </issueManagement>
+
+</project>

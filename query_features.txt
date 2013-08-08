@@ -1,0 +1,132 @@
+http://www.w3.org/TR/2011/WD-sparql11-query-20110512/#sparqlQuery
+The result of converting such an abstract syntax tree is a SPARQL query that uses the following symbols in the SPARQL algebra:
+
+Graph Pattern  
+-------------- 
+BGP 
+Join    
+LeftJoin    
+Filter  
+Union   
+Graph   
+Extend  
+Minus    
+ZeroLengthPath   
+ZeroOrMorePath   
+OneOrMorePath    
+NegatedPropertySet   
+
+
+Solution Modifiers
+------------------
+ToList
+OrderBy
+Project
+Distinct
+Reduced
+Slice
+ToMultiSet
+
+    to count triples
+    public static final String tagTriple        = "triple" ;
+
+    sparql algebra
+    public static final String tagBGP           = "bgp" ;
+    public static final String tagJoin          = "join" ;
+    public static final String tagLeftJoin      = "leftjoin" ;
+    public static final String tagUnion         = "union" ;
+    public static final String tagFilter        = "filter" ;
+    public static final String tagGraph         = "graph" ;
+    public static final String tagExtend        = "extend" ;   
+    public static final String tagMinus         = "minus" ;
+    public static final String tagPathZeroOrMore1   = "path*" ;
+    public static final String tagPathZeroOrMoreN   = "pathN*" ;
+    public static final String tagPathOneOrMore1    = "path+" ;
+    public static final String tagPathOneOrMoreN    = "pathN+" ;
+    public static final String tagPathZeroOrOne     = "path?" ;
+    public static final String tagPathNotOneOf      = "notoneof" ;
+
+    public static final String tagToList        = "tolist" ;
+    public static final String tagOrderBy       = "order" ;
+    public static final String tagProject       = "project" ; //sould be considered because of subqueries
+    public static final String tagDistinct      = "distinct" ;
+    public static final String tagReduced       = "reduced" ;
+    public static final String tagSlice         = "slice" ; //size of the slize
+    public static final String tagPathMulti     = "multi" ;
+
+    extra
+    public static final String tagTopN          = "top" ;
+    public static final String tagGroupBy       = "group" ;
+    public static final String tagAssign        = "assign" ;
+    public static final String tagExtend        = "extend" ;
+    public static final String symAssign        = ":=" ;
+
+
+
+
+from jena code tags
+package com.hp.hpl.jena.sparql.sse.Tags
+
+
+    // RDF
+    public static final String tagGraph         = "graph" ;
+    //public static final String tagLoad          = "graph@" ;
+    public static final String tagTriple        = "triple" ;
+    //public static final String tagQuad          = "quad" ;
+    //public static final String tagTriplePath    = "path" ;
+    
+    // SPARQL algebra
+    public static final String tagBGP           = "bgp" ;
+    //public static final String tagQuadPattern   = "quadpattern" ;
+    public static final String tagFilter        = "filter" ;
+    // public static final String tagGraph = "graph" ;
+    //public static final String tagLabel         = "label" ;
+    //public static final String tagService       = "service" ;
+    //public static final String tagProc          = "proc" ;
+    //public static final String tagPropFunc      = "propfunc" ;
+    public static final String tagJoin          = "join" ;
+    //public static final String tagSequence      = "sequence" ;
+    //public static final String tagDisjunction   = "disjunction" ;
+    public static final String tagLeftJoin      = "leftjoin" ;
+    //public static final String tagConditional   = "conditional" ;
+    //public static final String tagDiff          = "diff" ;
+    public static final String tagMinus         = "minus" ;
+    public static final String tagUnion         = "union" ;
+    //public static final String tagDatasetNames  = "datasetnames" ;
+
+    public static final String tagToList        = "tolist" ;
+    public static final String tagOrderBy       = "order" ;
+    public static final String tagTopN          = "top" ;
+    public static final String tagGroupBy       = "group" ;
+    public static final String tagProject       = "project" ;
+    public static final String tagDistinct      = "distinct" ;
+    public static final String tagReduced       = "reduced" ;
+    public static final String tagAssign        = "assign" ;
+    public static final String tagExtend        = "extend" ;
+    public static final String symAssign        = ":=" ;
+    public static final String tagSlice         = "slice" ;
+
+
+
+
+
+       // Paths
+    public static final String tagPath          = "path" ;
+    public static final String tagPathSeq       = "seq" ;
+    public static final String tagPathAlt       = "alt" ;
+    public static final String tagPathMod       = "mod" ;
+    
+    public static final String tagPathZeroOrMore1   = "path*" ;
+    public static final String tagPathZeroOrMoreN   = "pathN*" ;
+    public static final String tagPathOneOrMore1    = "path+" ;
+    public static final String tagPathOneOrMoreN    = "pathN+" ;
+    public static final String tagPathZeroOrOne     = "path?" ;
+    public static final String tagPathFixedLength   = "pathN" ;
+    public static final String tagPathDistinct      = "distinct" ;
+    public static final String tagPathMulti         = "multi" ;
+    public static final String tagPathShortest      = "shortest" ;
+    
+    public static final String tagPathReverse       = "reverse" ;
+    public static final String tagPathRev           = "rev" ;
+    public static final String tagPathLink          = "link" ;
+    public static final String tagPathNotOneOf      = "notoneof" ;
