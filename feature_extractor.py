@@ -87,7 +87,7 @@ class FeatureExtractor:
         # If-statement after search() tests if it succeeded
         if match:              
             #print 'found: ['+str(match.group(1))+']' ## 'found word:cat'
-            print match
+            #print match
             int_match = map(int, match)
             return sum(int_match)
         else:

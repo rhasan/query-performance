@@ -8,13 +8,21 @@ from SPARQLWrapper import SPARQLWrapper, JSON, SELECT
 
 DBPEDIA_ENDPOINT = "http://dbpedia-test.inria.fr/sparql"
 #DBPEDIA_ENDPOINT = "http://dbpedia.org/sparql";
-TOTAL_QUERY = 100
+TOTAL_QUERY = 1000
 
-DBPEDIA_QUERY_LOG = "dbp-200.log"
+DBPEDIA_QUERY_LOG = "dbp-10000.log"
 
 class QueryProcessor:
     
     def load_queries(self):
+
+        data_split = int(TOTAL_QUERY*0.6)
+        validation_split = int(TOTAL_QUERY*0.2)
+        test_split = int(TOTAL_QUERY*0.2)
+        print "data_split", data_split
+        print "validation_split", validation_split
+        print "test_split", test_split
+
         f = open(DBPEDIA_QUERY_LOG,'rb')
         fq = open("x_query.txt",'w')
         ft = open("y_time.txt",'w')
@@ -27,6 +35,24 @@ class QueryProcessor:
         for line in f:
             if(count>=TOTAL_QUERY):
                 break
+
+            if count == data_split:
+                fq.close()
+                ft.close()
+                ff.close()
+                fq = open("xval_query.txt",'w')
+                ft = open("yval_time.txt",'w')
+                ff = open("xval_features.txt",'w')
+                x_f_csv = csv.writer(ff)
+            elif count == (data_split+validation_split):
+                fq.close()
+                ft.close()
+                ff.close()
+                fq = open("xtest_query.txt",'w')
+                ft = open("ytest_time.txt",'w')
+                ff = open("xtest_features.txt",'w')
+                x_f_csv = csv.writer(ff)
+
 
             try:
                 row = line.split()
@@ -44,6 +70,7 @@ class QueryProcessor:
                 feature_vector = f_extractor.get_features(sparql_query)
 
                 if feature_vector == None:
+                    print "feature vector not found"
                     continue
 
 
@@ -70,15 +97,18 @@ class QueryProcessor:
                 fq.write(query_log+'\n')
                 ft.write(str(elapsed)+'\n')
                 x_f_csv.writerow(feature_vector)
+                count += 1
             except Exception as inst:
                 print "Exception", inst
 
-            count += 1
+            
         
         f.close()
         fq.close()
         ft.close()
         ff.close()
+        print count, "queries processed"
+
     
 
 def main():

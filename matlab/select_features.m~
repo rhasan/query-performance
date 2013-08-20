@@ -1,0 +1,8 @@
+function [ X, Xval, Xtest, y, yval, ytest ] = select_features( selected_features, Xo, Xvalo, Xtesto, yo, yvalo, ytesto )
+%UNTITLED2 Summary of this function goes here
+%   Detailed explanation goes here
+    X = Xo(:,select_features);
+    Xval = Xval(:,select_features);
+
+end
+
