@@ -50,26 +50,63 @@ pause;
 %title('Dataset plotted in 2D, using PCA for dimensionality reduction');
 %pause;
 
+%% =========== normalize features ================
+%normalize
+%[X_nor, X_mu, X_sigma,X_mean] = featureNormalizeZeroMean(X);  
+%[Xval_nor] = featureNormalizePredZeroMean(Xval, X_mu, X_sigma,X_mean);  
+%[Xtest_nor] = featureNormalizePredZeroMean(Xtest, X_mu, X_sigma,X_mean);
+
+[X_nor, X_mu, X_sigma] = featureNormalize(X);  
+[Xval_nor] = featureNormalizePred(Xval, X_mu, X_sigma);  
+[Xtest_nor] = featureNormalizePred(Xtest, X_mu, X_sigma);
+%% =================== cross validating C and nu parameters ========
+
+%nu = 1;
+%C = 1;
+C=30;
+nu=0.3;
+
+%[C, nu] = getSVRParams(X_nor,y,Xval_nor,yval);
+
+
+
+%% =========== Part 5: Learning Curve for SVR Regression =============
+fprintf('Learning Curve starting.\n');
+[error_train, error_val] = ...
+    learningCurveSVR(X_nor, y, ...
+                  Xval_nor, yval, ...
+                  C,nu);
+figure(2);
+plot(1:m, error_train, 1:m, error_val);
+title('Learning curve for linear regression')
+legend('Train', 'Cross Validation')
+xlabel('Number of training examples')
+ylabel('Error')
+%axis([0 m 0 0.02])
+
+fprintf('# Training Examples\tTrain Error\tCross Validation Error\n');
+for i = 1:m
+    fprintf('  \t%d\t\t%f\t%f\n', i, error_train(i), error_val(i));
+end
+fprintf('Learning Curve finished.\n');
+
+%%==================== training and evaluating SVR ======================
 %options = sprintf('-c %1.3f -g %1.3f',C,sigma);
 %model = svmtrain(y, X, options);
 %[predict_label, accuracy, dec_values] = svmpredict(yval, Xval, model);
 
-%nu = 1;
-%C = 1;
-%[C, nu] = getSVRParams(X,y,Xval,yval);
-
-C=3;
-nu=0.3;
-tic;model = svmtrain(y,X,['-s 4 -t 2 -n ' num2str(nu) ' -c ' num2str(C)]);toc
 
 
-[y_pred,acc_train,prob_train] = svmpredict(y,X,model);
+tic;model = svmtrain(y,X_nor,['-s 4 -t 2 -n ' num2str(nu) ' -c ' num2str(C)]);toc
+
+
+[y_pred,acc_train,prob_train] = svmpredict(y,X_nor,model);
 %y_pred = X_poly * theta;
 exp_var_training = explained_variance_score(y,y_pred);
 fprintf('Explained variance score (training): %f \n',exp_var_training);
 
 %ytest_pred = X_poly_test * theta;
-[ytest_pred,acc_test,prob_test]=svmpredict(ytest,Xtest,model);
+[ytest_pred,acc_test,prob_test]=svmpredict(ytest,Xtest_nor,model);
 exp_var_test = explained_variance_score(ytest,ytest_pred);
 fprintf('Explained variance score (test): %f \n',exp_var_test);
 
