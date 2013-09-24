@@ -25,9 +25,11 @@ def find_closest_centers(X,center_idxs,distance_matrix):
                 min_d = d
                 min_j = j
         idx[i] = min_j
-        if min_d == 0:
-            idx[i] = i
+        if min_j == -1:
+            print "###debug####",min_d,min_j
 
+    for j in center_idxs:
+        idx[j] = j
     return idx
 
 def compute_centers(X, idx, center_idxs,distance_matrix):
@@ -53,6 +55,10 @@ def compute_centers(X, idx, center_idxs,distance_matrix):
                 min_c = c_indx
 
         moved_centers[i] = min_c
+        if min_c == -1:
+            print "------------Debug-------",min_cost, min_c
+
+
         i += 1
 
         #print "min_cost:", min_cost

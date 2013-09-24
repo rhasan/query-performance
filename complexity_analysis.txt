@@ -43,9 +43,9 @@ Time taken: 944 seconds
 Elapsed time: 996 seconds
 
 clustering:
-min model cost:  29.0
-model cost:  29.0
-[Finished in 162.9s]
+min model cost:  168.0
+model cost:  168.0
+[Finished in 84.3s]
 
 prediction
 Predicting clusters for validation dataset
