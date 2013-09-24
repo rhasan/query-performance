@@ -1,0 +1,56 @@
+Generating query sparse matrix file
+Elapsed time: 3 seconds
+Generating hungarian distance matrix file
+0 query pairs processed
+Time taken: 0 seconds
+log4j:WARN No appenders could be found for logger (org.apache.jena.riot.stream.JenaIOEnvironment).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+10000 query pairs processed
+Time taken: 62 seconds
+20000 query pairs processed
+Time taken: 122 seconds
+30000 query pairs processed
+Time taken: 179 seconds
+40000 query pairs processed
+Time taken: 235 seconds
+50000 query pairs processed
+Time taken: 291 seconds
+60000 query pairs processed
+Time taken: 346 seconds
+70000 query pairs processed
+Time taken: 399 seconds
+80000 query pairs processed
+Time taken: 455 seconds
+90000 query pairs processed
+Time taken: 512 seconds
+100000 query pairs processed
+Time taken: 566 seconds
+110000 query pairs processed
+Time taken: 621 seconds
+120000 query pairs processed
+Time taken: 674 seconds
+130000 query pairs processed
+Time taken: 727 seconds
+140000 query pairs processed
+Time taken: 782 seconds
+150000 query pairs processed
+Time taken: 836 seconds
+160000 query pairs processed
+Time taken: 890 seconds
+170000 query pairs processed
+Time taken: 944 seconds
+Elapsed time: 996 seconds
+
+clustering:
+min model cost:  29.0
+model cost:  29.0
+[Finished in 162.9s]
+
+prediction
+Predicting clusters for validation dataset
+Elapsed time: 8 seconds
+Predicting clusters for test dataset
+Elapsed time: 6 seconds
+
+

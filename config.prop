@@ -1,0 +1,24 @@
+[DBpedia]
+Endpoint = http://dbpedia-test.inria.fr/sparql
+TotalQuery = 1000
+QueryFile = /Users/hrakebul/Documents/code/query-performance/dbp-10000.log
+Namespaces = /Users/hrakebul/Documents/code/query-performance/dbpedia_prefix.sparql
+
+[Query]
+CountFeatures = /Users/hrakebul/Documents/code/query-performance/count_feature_list.txt
+ValueFeatures = /Users/hrakebul/Documents/code/query-performance/value_feature_list.txt
+QueryAlgebra = /Users/hrakebul/Documents/code/query-performance/libs/apache-jena-2.10.1/bin/qparse
+TrainingQuery = /Users/hrakebul/Documents/code/query-performance/x_query.txt
+TrainingAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/x_features.txt
+TrainingQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/y_time.txt
+ValidationQuery = /Users/hrakebul/Documents/code/query-performance/xval_query.txt
+TestQuery = /Users/hrakebul/Documents/code/query-performance/xtest_query.txt
+TestQuerySmall = /Users/hrakebul/Documents/code/query-performance/xtest_query_small20.txt
+
+[QueryClustering]
+K = 10
+DistanceHungarian = /Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/scripts/qdistance-hungarian
+RandomShuffelMaxIters = 100
+KmediodsMaxIters = 100
+ClusterCach = /Users/hrakebul/Documents/code/query-performance/clustering/cluster_cach
+CenterCach = /Users/hrakebul/Documents/code/query-performance/clustering/center_cach
