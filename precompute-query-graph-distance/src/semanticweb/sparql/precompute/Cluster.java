@@ -7,7 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -25,9 +27,15 @@ public class Cluster {
 	private String validationPredictionFile = "validation_cluster_prediction.dat";
 	private String testPredictionFile = "test_cluster_prediction.dat";
 	
+	private String trainingFeatureExtraFile = "/Users/hrakebul/Documents/code/query-performance/x_features_extra.txt";
+	private String validationFeatureExtraFile = "/Users/hrakebul/Documents/code/query-performance/xval_features_extra.txt";
+	private String testFeatureExtraFile = "/Users/hrakebul/Documents/code/query-performance/xtest_features_extra.txt";
 	
 	private List<Integer> center_idx = new ArrayList<Integer>();
 	private List<Integer> idx = new ArrayList<Integer>();
+	private List<Integer> validationIdx = new ArrayList<Integer>();
+	private List<Integer> testIdx = new ArrayList<Integer>();
+	
 	private List<String> queries;
 	private Properties prop;
 	
@@ -60,8 +68,7 @@ public class Cluster {
 		Scanner in = new Scanner(new FileInputStream(CENTER_FILE));
 		while(in.hasNext()) {
 			int id = in.nextInt();
-			if(id>0)
-				center_idx.add(id);
+			center_idx.add(id);
 		}
 	}
 	
@@ -105,6 +112,7 @@ public class Cluster {
 		while(in.hasNext()) {
 			String line = in.nextLine();
 			int c = predictCluster(line);
+			validationIdx.add(c);
 			//System.out.println(c);
 			ps.println(c);
 		}
@@ -121,6 +129,7 @@ public class Cluster {
 		while(in.hasNext()) {
 			String line = in.nextLine();
 			int c = predictCluster(line);
+			testIdx.add(c);
 			//System.out.println(c);
 			ps.println(c);
 		}
@@ -128,11 +137,65 @@ public class Cluster {
 		System.out.println("Elapsed time: "+watch.elapsed(TimeUnit.SECONDS)+" seconds");
 		ps.close();
 	}
+
+	private void writeFreatureVectors(Map<Integer,Integer> cenIndex,List<Integer> list, PrintStream ps){
+		int dimentions = Integer.valueOf(prop.getProperty("K"));
+		for(int c:list) {
+			int[] ftr = new int[dimentions];
+			//System.out.println(c);
+			//System.out.println(cenIndex.get(c));
+			ftr[cenIndex.get(c)] = 1;
+			
+			String outString = "";
+			for(int j=0;j<ftr.length;j++){
+				if(j!=0) {
+					outString += ",";
+				}
+				outString += ftr[j];
+			}
+			
+			ps.println(outString);
+			//System.out.println(outString);
+		}		
+	}
+	
+	public void createFeaterfiles() throws IOException {
+		System.out.println("Creating feature files for training, validation and test datasets");
+		Stopwatch watch = new Stopwatch();
+		watch.start();	
+		
+		PrintStream xFeaturePs = new PrintStream(trainingFeatureExtraFile);
+		PrintStream xvalFeaturePs = new PrintStream(validationFeatureExtraFile);
+		PrintStream xtestFeaturePs = new PrintStream(testFeatureExtraFile);
+		
+		
+		
+		Map<Integer,Integer> cenIndex = new HashMap<Integer, Integer>();
+		int i=0;
+		for(int c:center_idx){
+			cenIndex.put(c, i);
+			//System.out.println(c+" "+i);
+			i++;
+		}
+		
+		writeFreatureVectors(cenIndex, idx, xFeaturePs);
+		writeFreatureVectors(cenIndex, validationIdx, xvalFeaturePs);
+		writeFreatureVectors(cenIndex, testIdx, xtestFeaturePs);
+		
+		xFeaturePs.close();
+		xvalFeaturePs.close();
+		xtestFeaturePs.close();
+		watch.stop();
+		System.out.println("Elapsed time: "+watch.elapsed(TimeUnit.SECONDS)+" seconds");		
+	}
 	
 	public static void main(String[] args) throws Exception {
 		Cluster cl = new Cluster();
 		cl.processValidationQueries();
 		cl.processTestQueries();
+		
+		cl.createFeaterfiles();
+
 	}
 
 }

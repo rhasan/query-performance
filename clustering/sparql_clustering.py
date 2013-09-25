@@ -199,7 +199,7 @@ class ClusterSparql:
         '''
         m = np.size(self.X,0)
         self.distance_matrix = np.zeros((m,m),dtype=float)
-        f = open('/Users/hrakebul/Documents/workspace/precompute-query-graph-distance/training_distance_hungarian_matrix.dat')
+        f = open('/Users/hrakebul/Documents/code/query-performance/precompute-query-graph-distance/training_distance_hungarian_matrix.dat')
         for line in f:
             row = line.split()
             i = int(row[0])

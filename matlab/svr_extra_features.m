@@ -22,6 +22,8 @@ yval = csvread('../yval_time.txt');
 Xtest = csvread('../xtest_features.txt');
 ytest = csvread('../ytest_time.txt');
 
+[ X, Xval, Xtest ] = merge_extra_features(X, Xval, Xtest);
+
 %selected_features = [1 2 3 4 5 6 18 19];
 selected_features = mean(X)~=0;
 

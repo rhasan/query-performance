@@ -39,7 +39,8 @@ yval = csvread('../yval_time.txt');
 Xtest = csvread('../xtest_features.txt');
 ytest = csvread('../ytest_time.txt');
 
-selected_features = [1 2 3 4 5 6 18 19];
+%selected_features = [1 2 3 4 5 6 18 19];
+selected_features = mean(X)~=0;
 %selected_features = [1 2 3 4 5 6 8 17 18 19 23];
 %selected_features = [1:24];
 [ X, Xval, Xtest] = select_features(selected_features,X, Xval, Xtest);
