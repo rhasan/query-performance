@@ -20,16 +20,16 @@ import semanticweb.RDFGraphMatching;
 import util.DBPediaUtils;
 
 public class Cluster {
-	public static String CENTER_FILE = "/Users/hrakebul/Documents/code/query-performance/clustering/center_cach_hungarian";
-	public static String CLUSTER_FILE = "/Users/hrakebul/Documents/code/query-performance/clustering/cluster_cach_hungarian";
+	public static String CENTER_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/clustering/center_cach_hungarian";
+	public static String CLUSTER_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/clustering/cluster_cach_hungarian";
 	
 	
 	private String validationPredictionFile = "validation_cluster_prediction.dat";
 	private String testPredictionFile = "test_cluster_prediction.dat";
 	
-	private String trainingFeatureExtraFile = "/Users/hrakebul/Documents/code/query-performance/x_features_extra.txt";
-	private String validationFeatureExtraFile = "/Users/hrakebul/Documents/code/query-performance/xval_features_extra.txt";
-	private String testFeatureExtraFile = "/Users/hrakebul/Documents/code/query-performance/xtest_features_extra.txt";
+	private String trainingFeatureExtraFile = System.getProperty("user.home")+"/Documents/code/query-performance/x_features_extra.txt";
+	private String validationFeatureExtraFile = System.getProperty("user.home")+"/Documents/code/query-performance/xval_features_extra.txt";
+	private String testFeatureExtraFile = System.getProperty("user.home")+"/Documents/code/query-performance/xtest_features_extra.txt";
 	
 	private List<Integer> center_idx = new ArrayList<Integer>();
 	private List<Integer> idx = new ArrayList<Integer>();
