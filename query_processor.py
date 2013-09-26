@@ -9,9 +9,9 @@ from SPARQLWrapper import SPARQLWrapper, JSON, SELECT
 #DBPEDIA_ENDPOINT = "http://alphubel.unice.fr:8890/sparql"
 DBPEDIA_ENDPOINT = "http://dbpedia-test.inria.fr/sparql"
 #DBPEDIA_ENDPOINT = "http://dbpedia.org/sparql"
-TOTAL_QUERY = 1000
+TOTAL_QUERY = 20000
 #TOTAL_QUERY = 100
-DBPEDIA_QUERY_LOG = "dbp-10000.log"
+DBPEDIA_QUERY_LOG = "dbp-40000-random.log"
 
 class QueryProcessor:
     
