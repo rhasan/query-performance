@@ -1,5 +1,6 @@
 import util
 import urlparse
+import os
 import time
 from feature_extractor import FeatureExtractor
 import csv
@@ -12,10 +13,13 @@ DBPEDIA_ENDPOINT = "http://dbpedia-test.inria.fr/sparql"
 TOTAL_QUERY = 20000
 #TOTAL_QUERY = 100
 DBPEDIA_QUERY_LOG = "dbp-40000-random.log"
+DIRECTORY = str(TOTAL_QUERY)+"/"
 
 class QueryProcessor:
     
     def load_queries(self):
+        if not os.path.exists(DIRECTORY):
+            os.makedirs(DIRECTORY)
 
         data_split = int(TOTAL_QUERY*0.6)
         validation_split = int(TOTAL_QUERY*0.2)
@@ -25,15 +29,20 @@ class QueryProcessor:
         print "test_split", test_split
 
         f = open(DBPEDIA_QUERY_LOG,'rb')
-        fq = open("x_query.txt",'w')
-        ft = open("y_time.txt",'w')
-        ff = open("x_features.txt",'w')
+        fq = open(DIRECTORY+"x_query.txt",'w')
+        ft = open(DIRECTORY+"y_time.txt",'w')
+        ff = open(DIRECTORY+"x_features.txt",'w')
         x_f_csv = csv.writer(ff)
         sparql = SPARQLWrapper(DBPEDIA_ENDPOINT)
         f_extractor = FeatureExtractor()
+        
+        
+        
         sw1 = StopWatch()
         sw2 = StopWatch()
         print_log_split = int(TOTAL_QUERY/10)
+        
+      
 
         count =0 
         for line in f:
@@ -47,17 +56,17 @@ class QueryProcessor:
                 fq.close()
                 ft.close()
                 ff.close()
-                fq = open("xval_query.txt",'w')
-                ft = open("yval_time.txt",'w')
-                ff = open("xval_features.txt",'w')
+                fq = open(DIRECTORY+"xval_query.txt",'w')
+                ft = open(DIRECTORY+"yval_time.txt",'w')
+                ff = open(DIRECTORY+"xval_features.txt",'w')
                 x_f_csv = csv.writer(ff)
             elif count == (data_split+validation_split):
                 fq.close()
                 ft.close()
                 ff.close()
-                fq = open("xtest_query.txt",'w')
-                ft = open("ytest_time.txt",'w')
-                ff = open("xtest_features.txt",'w')
+                fq = open(DIRECTORY+"xtest_query.txt",'w')
+                ft = open(DIRECTORY+"ytest_time.txt",'w')
+                ff = open(DIRECTORY+"xtest_features.txt",'w')
                 x_f_csv = csv.writer(ff)
 
 

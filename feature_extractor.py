@@ -60,7 +60,8 @@ class FeatureExtractor:
         (status,abs_query_str) = commands.getstatusoutput(cmd)
         #print abs_query_str
         if status != 0:
-            error = "jena query parsing error: "+str(status)+" "+abs_query_str + " query:"+dbp_query
+            #error = "jena query parsing error: "+str(status)+" "+abs_query_str + " query:"+dbp_query
+            error = "jena query parsing error: "+str(status)
             #print "jena query parsing error:", (status,abs_query_str), "query:",dbp_query
             raise Exception(error)
             return None
