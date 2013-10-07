@@ -41,5 +41,6 @@
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/sparql-grap-pattern-edit-distance.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

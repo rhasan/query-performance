@@ -25,7 +25,7 @@ import semanticweb.RDFGraphMatching;
 import util.DBPediaUtils;
 
 public class SparqlDistance {
-	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config.prop";
+	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-20000.prop";
 	String trainingQueryMatrixFilename = "training_query_matrix.dat";
 	String trainingQueryHungarianFilename = "training_distance_hungarian_matrix.dat";
 	
@@ -130,7 +130,23 @@ public class SparqlDistance {
 
 	}
 
-	
+	public static double dbpediaQueryGraphHumgarainDistance(String q1, String q2) throws Exception {
+		double cost = Integer.MAX_VALUE;
+		String sparql1 = DBPediaUtils.getParam(q1, "query");
+		String sparql2 = DBPediaUtils.getParam(q2, "query");		
+		if(sparql1.isEmpty()==false && sparql2.isEmpty()==false) {
+			String rsparql1 = DBPediaUtils.refineForDBPedia(sparql1);
+			String rsparql2 = DBPediaUtils.refineForDBPedia(sparql2);
+			AlgorithmConfig algorithmConfig = AlgorithmConfig.createBipartiteHungarian();
+			RDFGraphMatching matcher = new RDFGraphMatching();
+			//System.out.println("q1: "+sparql1);
+			//System.out.println("q2: "+sparql2);
+			
+			cost = matcher.queryGraphDistance(rsparql1, rsparql2, algorithmConfig);
+			//System.out.println("Cost:"+cost);
+		}
+		return cost;
+	}
 	
 	public String getProperty(String x) {
 		return prop.getProperty(x);
@@ -144,9 +160,9 @@ public class SparqlDistance {
 
 		Stopwatch watch = new Stopwatch();
 		watch.start();
-		System.out.println("Generating query sparse matrix file");
-		generateQuerySparseMatrix(getProperty("TrainingQuery"),trainingQueryMatrixFilename);
-		System.out.println("Elapsed time: "+watch.elapsed(TimeUnit.SECONDS)+" seconds");
+		//System.out.println("Generating query sparse matrix file");
+		//generateQuerySparseMatrix(getProperty("TrainingQuery"),trainingQueryMatrixFilename);
+		//System.out.println("Elapsed time: "+watch.elapsed(TimeUnit.SECONDS)+" seconds");
 		
 		watch.reset();
 		watch.start();

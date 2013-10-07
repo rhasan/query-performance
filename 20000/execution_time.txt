@@ -1,0 +1,16 @@
+25910000 query pairs processed
+Time taken: 91615 seconds
+Elapsed time: 91637 seconds
+
+hassy:clustering hrakebul$ python sparql_clustering.py 
+start
+min model cost:  0.0
+model cost:  0.0
+Total execution time:  25080  seconds
+
+
+
+---correct one
+71990000 query pairs processed
+Time taken: 254235 seconds
+Elapsed time: 254249 seconds
