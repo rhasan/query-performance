@@ -13,7 +13,16 @@ from sparql_util import SarqlUtil
 
 import k_mediods
 
+<<<<<<< HEAD
 CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config.prop'
+<<<<<<< HEAD
+=======
+DISTANCE_MATRIX_FILE = '/Users/hrakebul/Documents/code/query-performance/20000/training_distance_hungarian_matrix.dat'
+=======
+CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-20000.prop'
+DISTANCE_MATRIX_FILE = '/Users/hrakebul/Documents/code/query-performance/20000/training_distance_hungarian_matrix.dat.nogit'
+>>>>>>> 506daee... large files ignored retry1
+>>>>>>> d3cbe79... retry2
 class ClusterSparql:
     """Cluster sparql"""
     def __init__(self,config_file=CONFIG_FILE):
