@@ -26,8 +26,8 @@ import util.DBPediaUtils;
 
 public class SparqlDistance {
 	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-20000.prop";
-	String trainingQueryMatrixFilename = "training_query_matrix.dat";
-	String trainingQueryHungarianFilename = "training_distance_hungarian_matrix.dat";
+	String trainingQueryMatrixFilename = "training_query_matrix.nogit";
+	String trainingQueryHungarianFilename = null;
 	
 	private Properties prop;
 	List<String> queries;
@@ -38,8 +38,17 @@ public class SparqlDistance {
 		//System.out.println(prop.getProperty("TestQuerySmall"));
 		//System.out.println(prop.values());
 		
+		loadConfig();
+		loadQuries();
+		
 	}
-	public void loadQuries(String queryFile) throws IOException {
+	
+	public void loadConfig() {
+		trainingQueryHungarianFilename = prop.getProperty("TrainingDistanceHungarianMatrix");
+	}
+	
+	public void loadQuries() throws IOException {
+		String queryFile = getProperty("TrainingQuery");
 		FileInputStream fis = new FileInputStream(queryFile);
 		Scanner in = new Scanner(fis);
 		queries = null;
@@ -57,8 +66,6 @@ public class SparqlDistance {
 	public void generateQuerySparseMatrix(String queryFile,String matrixFile) throws IOException{
 		
 		PrintStream ps = new PrintStream(matrixFile);
-		
-		loadQuries(queryFile);
 		
 		for(int i=0;i<queries.size();i++) {
 			String iQuery = queries.get(i);
@@ -130,6 +137,63 @@ public class SparqlDistance {
 
 	}
 
+	
+	public void generateQueryHungarianDistanceSparseMatrix(String distanceMatrixFile) throws Exception{
+		
+		PrintStream ps = new PrintStream(distanceMatrixFile);
+		
+		DecimalFormat df=new DecimalFormat("0.000");
+		
+		PrintStream ps_error = new PrintStream("error.txt");
+		
+		//List<String> queryPairs = new ArrayList<String>();
+		int count = 0;
+		Stopwatch watch = new Stopwatch();
+		watch.start();
+		
+		for(int i=0;i<queries.size();i++) {
+			String q1 = queries.get(i);
+			for(int j=i+1;j<queries.size();j++) {
+				String q2 = queries.get(j);
+
+				
+				if(count%10000 == 0) {
+					System.out.println((count)+" query pairs processed");
+					System.out.println("Time taken: "+watch.elapsed(TimeUnit.SECONDS)+" seconds");
+				}
+				
+				String sparql1 = DBPediaUtils.getParam(q1, "query");
+				String sparql2 = DBPediaUtils.getParam(q2, "query");
+				
+				double cost = Integer.MAX_VALUE;
+				
+				if(sparql1.isEmpty()==false && sparql2.isEmpty()==false) {
+					String rsparql1 = DBPediaUtils.refineForDBPedia(sparql1);
+					String rsparql2 = DBPediaUtils.refineForDBPedia(sparql2);
+					AlgorithmConfig algorithmConfig = AlgorithmConfig.createBipartiteHungarian();
+					RDFGraphMatching matcher = new RDFGraphMatching();
+					//System.out.println("q1: "+sparql1);
+					//System.out.println("q2: "+sparql2);
+					
+					cost = matcher.queryGraphDistance(rsparql1, rsparql2, algorithmConfig);
+					//System.out.println("Cost:"+cost);
+				}
+				String out = i+" "+j+" "+df.format(cost);
+				ps.println(out);
+				count++;
+				
+				if(cost==Integer.MAX_VALUE) {
+					String ss = "#######################\n"+i+" "+j+"\n--------q1-below--------\n"+q1+"\n"+sparql1+"\n-------q2-below---------\n"+q2+"\n"+sparql2+"\n------end-----\n";
+					ps_error.println(ss);
+				}
+			}
+		}	
+		
+		ps.close();
+		ps_error.close();
+
+
+	}	
 	public static double dbpediaQueryGraphHumgarainDistance(String q1, String q2) throws Exception {
 		double cost = Integer.MAX_VALUE;
 		String sparql1 = DBPediaUtils.getParam(q1, "query");
@@ -167,7 +231,7 @@ public class SparqlDistance {
 		watch.reset();
 		watch.start();
 		System.out.println("Generating hungarian distance matrix file");
-		generateQueryHungarianDistanceSparseMatrix(trainingQueryMatrixFilename, trainingQueryHungarianFilename);
+		generateQueryHungarianDistanceSparseMatrix(trainingQueryHungarianFilename);
 		watch.stop();
 		System.out.println("Elapsed time: "+watch.elapsed(TimeUnit.SECONDS)+" seconds");		
 	}

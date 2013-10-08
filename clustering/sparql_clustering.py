@@ -13,16 +13,10 @@ from sparql_util import SarqlUtil
 
 import k_mediods
 
-<<<<<<< HEAD
-CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config.prop'
-<<<<<<< HEAD
-=======
-DISTANCE_MATRIX_FILE = '/Users/hrakebul/Documents/code/query-performance/20000/training_distance_hungarian_matrix.dat'
-=======
+
 CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-20000.prop'
-DISTANCE_MATRIX_FILE = '/Users/hrakebul/Documents/code/query-performance/20000/training_distance_hungarian_matrix.dat.nogit'
->>>>>>> 506daee... large files ignored retry1
->>>>>>> d3cbe79... retry2
+DISTANCE_MATRIX_FILE = '/Users/hrakebul/Documents/code/query-performance/20000/training_distance_hungarian_matrix.nogit'
+
 class ClusterSparql:
     """Cluster sparql"""
     def __init__(self,config_file=CONFIG_FILE):
@@ -42,8 +36,8 @@ class ClusterSparql:
         self.random_shuffel_max_iters = self.config.getint('QueryClustering','RandomShuffelMaxIters')
         self.kmediods_max_iters = self.config.getint('QueryClustering','KmediodsMaxIters')
 
-        self.cluster_cach_file = self.config.get('QueryClustering','ClusterCach')
-        self.center_cach_file = self.config.get('QueryClustering','CenterCach')
+        self.cluster_cach_file = self.config.get('QueryClustering','HungarianClusterCach')
+        self.center_cach_file = self.config.get('QueryClustering','HungarianCenterCach')
 
 
         self.training_query_file = self.config.get('Query','TrainingQuery')
@@ -153,12 +147,12 @@ class ClusterSparql:
         return ""
     
     def save_clusters(self,distance_function):
-        df_name = self.distance_function_name(distance_function)
+        #df_name = self.distance_function_name(distance_function)
         
-        #np.save(self.cluster_cach_file+df_name,self.idx)
-        #np.save(self.center_cach_file+df_name,self.center_idxs)
-        np.savetxt(self.cluster_cach_file+df_name, self.idx, fmt='%d')
-        np.savetxt(self.center_cach_file+df_name,self.center_idxs, fmt='%d')
+        #np.save(self.cluster_cach_file,self.idx)
+        #np.save(self.center_cach_file,self.center_idxs)
+        np.savetxt(self.cluster_cach_file, self.idx, fmt='%d')
+        np.savetxt(self.center_cach_file,self.center_idxs, fmt='%d')
     
     def predict_cluster(self,Xi, distance_function, url_to_sparql = False):
         if url_to_sparql == True:
@@ -208,7 +202,7 @@ class ClusterSparql:
         '''
         m = np.size(self.X,0)
         self.distance_matrix = np.zeros((m,m),dtype=float)
-        f = open('/Users/hrakebul/Documents/code/query-performance/precompute-query-graph-distance/training_distance_hungarian_matrix.dat')
+        f = open(DISTANCE_MATRIX_FILE)
         for line in f:
             row = line.split()
             i = int(row[0])

@@ -24,5 +24,16 @@ KmediodsMaxIters = 100
 HungarianClusterCach = /Users/hrakebul/Documents/code/query-performance/20000/cluster_cach_hungarian
 HungarianCenterCach = /Users/hrakebul/Documents/code/query-performance/20000/center_cach_hungarian
 
+TrainingExtraFeatures = /Users/hrakebul/Documents/code/query-performance/20000/x_features_extra.txt
+ValidationExtraFeatures = /Users/hrakebul/Documents/code/query-performance/20000/xval_features_extra.txt
+TestExtraFeatures = /Users/hrakebul/Documents/code/query-performance/20000/xtest_features_extra.txt
+
+
+TrainingSimilarityVectorfeature = /Users/hrakebul/Documents/code/query-performance/20000/x_features_simvec.txt
+ValidationSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/20000/xval_features_simvec.txt
+TestSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/20000/xtest_features_simvec.txt
+
+TrainingDistanceHungarianMatrix = /Users/hrakebul/Documents/code/query-performance/20000/training_distance_hungarian_matrix.nogit
+
 [General]
 DatasetDirectory = 20000
