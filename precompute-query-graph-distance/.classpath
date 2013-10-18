@@ -20,7 +20,7 @@
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/httpcore-4.2.2.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/javadoc-core.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/jcl-over-slf4j-1.6.4.jar"/>
-	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/jena-arq-2.11.0.jar"/>
+	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/jena-arq-2.11.0.jar" sourcepath="/Users/hrakebul/.m2/repository/org/apache/jena/jena-arq/2.11.0/jena-arq-2.11.0-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/jena-core-2.11.0.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/jena-iri-1.0.0.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/jena-sdb-1.4.0.jar"/>
@@ -42,5 +42,10 @@
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/weka.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/hrakebul/Documents/code/weka/weka-3-6-10/doc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

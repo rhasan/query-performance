@@ -49,7 +49,10 @@ class FeatureExtractor:
 
         tmp_q_file = "tmp_q_file~"
         #print query_str
-        dbp_query = self.get_dbp_sparql(query_str)
+        #to add the dbpedia prefixes
+        #dbp_query = self.get_dbp_sparql(query_str)
+        #not adding the dbpedia prefixes
+        dbp_query = query_str
         tq = open(tmp_q_file,'w')
         tq.write(dbp_query)
         tq.close()

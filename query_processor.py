@@ -8,10 +8,11 @@ from stopwatch import StopWatch
 from SPARQLWrapper import SPARQLWrapper, JSON, SELECT
 
 #DBPEDIA_ENDPOINT = "http://alphubel.unice.fr:8890/sparql"
-DBPEDIA_ENDPOINT = "http://dbpedia-test.inria.fr/sparql"
+#DBPEDIA_ENDPOINT = "http://dbpedia-test.inria.fr/sparql"
 #DBPEDIA_ENDPOINT = "http://dbpedia.org/sparql"
-TOTAL_QUERY = 20000
-#TOTAL_QUERY = 100
+DBPEDIA_ENDPOINT = "http://localhost:3030/dbpedia/sparql"
+#TOTAL_QUERY = 20000
+TOTAL_QUERY = 10000
 DBPEDIA_QUERY_LOG = "dbp-40000-random.log"
 DIRECTORY = str(TOTAL_QUERY)+"/"
 
@@ -78,11 +79,18 @@ class QueryProcessor:
                 #util.url_decode(row[6])
                 sparql_query = par['query'][0]
 
-                
-                
-
                 if sparql._parseQueryType(sparql_query) != SELECT:
                     continue
+
+                #print sparql_query
+                #print row
+
+                sparql_query = f_extractor.get_dbp_sparql(sparql_query)
+
+                #print sparql_query
+                
+
+
                 feature_vector = f_extractor.get_features(sparql_query)
 
                 if feature_vector == None:

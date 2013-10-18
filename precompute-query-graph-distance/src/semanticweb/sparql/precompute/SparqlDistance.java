@@ -25,7 +25,7 @@ import semanticweb.RDFGraphMatching;
 import util.DBPediaUtils;
 
 public class SparqlDistance {
-	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-20000.prop";
+	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-6000.prop";
 	String trainingQueryMatrixFilename = "training_query_matrix.nogit";
 	String trainingQueryHungarianFilename = null;
 	

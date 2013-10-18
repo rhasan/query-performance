@@ -14,8 +14,8 @@ from sparql_util import SarqlUtil
 import k_mediods
 
 
-CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-20000.prop'
-DISTANCE_MATRIX_FILE = '/Users/hrakebul/Documents/code/query-performance/20000/training_distance_hungarian_matrix.nogit'
+CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-6000.prop'
+#DISTANCE_MATRIX_FILE = '/Users/hrakebul/Documents/code/query-performance/20000/training_distance_hungarian_matrix.nogit'
 
 class ClusterSparql:
     """Cluster sparql"""
@@ -45,6 +45,8 @@ class ClusterSparql:
         self.training_execution_times_file = self.config.get('Query','TrainingQueryExecutionTimes')
         self.validation_query_file = self.config.get('Query','ValidationQuery')
         self.test_query_file = self.config.get('Query','TestQuery')
+
+        self.distance_matrix_file = self.config.get('QueryClustering','TrainingDistanceHungarianMatrix')
         
         self.center_idxs = None
         self.idx = None
@@ -183,13 +185,16 @@ class ClusterSparql:
 
     def cluster_queries(self,distance_function):
     
-        (min_center_idxs,min_cost) = k_mediods.initial_random_centers_cost_minimization(self.X ,self.K,self.distance_matrix,self.random_shuffel_max_iters,self.kmediods_max_iters)
-        print "min model cost: ", min_cost
+        #(min_center_idxs,min_cost) = k_mediods.initial_random_centers_cost_minimization(self.X ,self.K,self.distance_matrix,self.random_shuffel_max_iters,self.kmediods_max_iters)
+        #print "min model cost: ", min_cost
 
+        (initial_centers,min_center_idxs) = k_mediods.initial_random_centers(self.X,self.K)
         
         (self.center_idxs,self.idx) = k_mediods.k_mediods(self.X,min_center_idxs,self.kmediods_max_iters,self.distance_matrix)
         
         #k_mediods.print_clusters(self.X, self.idx, self.center_idxs)
+
+
         
         total_cost = k_mediods.model_cost(self.X, self.idx, self.center_idxs, self.distance_matrix)
         print "model cost: ", total_cost
@@ -201,8 +206,9 @@ class ClusterSparql:
         Must be called after loading training queries
         '''
         m = np.size(self.X,0)
+        print "m:",m
         self.distance_matrix = np.zeros((m,m),dtype=float)
-        f = open(DISTANCE_MATRIX_FILE)
+        f = open(self.distance_matrix_file)
         for line in f:
             row = line.split()
             i = int(row[0])

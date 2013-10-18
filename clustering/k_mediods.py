@@ -28,8 +28,8 @@ def find_closest_centers(X,center_idxs,distance_matrix):
         if min_j == -1:
             print "###debug####",min_d,min_j
 
-    for j in center_idxs:
-        idx[j] = j
+    #for j in center_idxs:
+    #    idx[j] = j
     return idx
 
 def compute_centers(X, idx, center_idxs,distance_matrix):
@@ -54,15 +54,12 @@ def compute_centers(X, idx, center_idxs,distance_matrix):
                 min_cost = cost
                 min_c = c_indx
 
-        moved_centers[i] = min_c
-        if min_c == -1:
-            print "------------Debug-------",min_cost, min_c
-
-
-        i += 1
+        if np.size(x_indxs,0) > 0:
+            moved_centers[i] = min_c
+            i += 1
 
         #print "min_cost:", min_cost
-    return moved_centers
+    return moved_centers[0:i]
 
 def k_mediods(X,initial_center_idxs,max_iters,distance_matrix):
     m = np.size(X,0)
@@ -76,11 +73,20 @@ def k_mediods(X,initial_center_idxs,max_iters,distance_matrix):
         previous_center_idxs = center_idxs
         center_idxs = compute_centers(X,idx,center_idxs,distance_matrix)
         
-        if (previous_center_idxs == center_idxs).all() == True:
-            break;
 
-    if (previous_center_idxs == center_idxs).all() == False:
-        idx = find_closest_centers(X,center_idxs,distance_matrix)
+        if np.size(previous_center_idxs,0) == np.size(center_idxs,0) and np.size(center_idxs,0) > 1:
+            if (previous_center_idxs == center_idxs).all() == True:
+                break;
+        elif np.size(previous_center_idxs,0) == np.size(center_idxs,0) and np.size(center_idxs,0) == 1:
+            if previous_center_idxs == center_idxs:
+                break;
+
+    if np.size(previous_center_idxs,0) == np.size(center_idxs,0) and np.size(center_idxs,0) > 1:
+        if (previous_center_idxs == center_idxs).all() == False:
+            idx = find_closest_centers(X,center_idxs,distance_matrix)
+    elif np.size(previous_center_idxs,0) == np.size(center_idxs,0) and np.size(center_idxs,0) == 1:
+        if previous_center_idxs == center_idxs:
+            idx = find_closest_centers(X,center_idxs,distance_matrix)
 
     return (center_idxs,idx)
 
@@ -153,7 +159,7 @@ def print_clusters(X,idx,center_idxs):
 
 def testStringClustering():
 
-    K = 20
+    K = 5
     random_shuffel_max_iters = 100
     kmediods_max_iters = 100
     #X =  np.array(['ape', 'appel', 'apple', 'peach', 'puppy'])

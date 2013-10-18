@@ -119,7 +119,7 @@ exp_var_test = explained_variance_score(ytest,ytest_pred);
 fprintf('Explained variance score (test): %f \n',exp_var_test);
 
 figure(3)
-scatter(y,y_pred);
+scatter(y,y_pred,'x');
 xlabel('Actual execution time')
 ylabel('Predicted execution time')
 title('Training set')
@@ -128,7 +128,7 @@ axis([0 max(max(y,y_pred)) 0 max(max(y,y_pred))])
 
 
 figure(4)
-scatter(ytest,ytest_pred);
+scatter(ytest,ytest_pred,'x');
 xlabel('Actual execution time');
 ylabel('Predicted execution time');
 title('Test set');

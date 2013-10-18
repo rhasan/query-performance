@@ -44,6 +44,7 @@ public class Cluster {
 	private List<String> queries;
 	private Properties prop;
 	private float[][] distanceMatrix;
+	private int K;
 	
 	public Cluster() throws IOException {
 		prop = new Properties();
@@ -91,6 +92,7 @@ public class Cluster {
 			int id = in.nextInt();
 			center_idx.add(id);
 		}
+		K = center_idx.size();
 	}
 	
 	public void loadClusters() throws IOException {
@@ -102,7 +104,7 @@ public class Cluster {
 	}
 	
 	private class SimVec {
-		double[] similarityVector = new double[Integer.valueOf(prop.getProperty("K"))];
+		double[] similarityVector = new double[K];
 		int clusterId;
 	}
 	
@@ -192,7 +194,7 @@ public class Cluster {
 	}
 
 	private void writeFreatureVectors(Map<Integer,Integer> cenIndex,List<Integer> list, PrintStream ps){
-		int dimentions = Integer.valueOf(prop.getProperty("K"));
+		int dimentions = K;
 		for(int c:list) {
 			int[] ftr = new int[dimentions];
 			//System.out.println(c);
@@ -289,11 +291,11 @@ public class Cluster {
 	
 	public static void main(String[] args) throws Exception {
 		Cluster cl = new Cluster();
-		//cl.processValidationQueries();
-		//cl.processTestQueries();
+		cl.processValidationQueries();
+		cl.processTestQueries();
 		
-		//cl.createFeatures();
-		cl.createTrainingSimilarityVectorFeatures();
+		cl.createFeatures();
+		//cl.createTrainingSimilarityVectorFeatures();
 
 		
 	}

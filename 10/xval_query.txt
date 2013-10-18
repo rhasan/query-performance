@@ -1,0 +1,2 @@
+/sparql?query=PREFIX+dbp%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2F%3E%0A++++SELECT+%3Fpage%0A%09WHERE+%7B+%0A%09++dbp%3ALymphocyte+foaf%3Apage+%3Fpage+.+%0A%09%7D&format=json
+/sparql?query=SELECT+DISTINCT++%3Fs+%3Fo%0AFROM+%3Chttp%3A%2F%2Fdbpedia.org%3E%0AWHERE%0A++%7B+%3Fs+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23label%3E+%3Fo+%7D%0AOFFSET++10856000%0ALIMIT+++1000%0A

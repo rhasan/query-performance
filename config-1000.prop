@@ -1,0 +1,39 @@
+[DBpedia]
+Endpoint = http://dbpedia-test.inria.fr/sparql
+#total number of the queries including training, validation, and test
+TotalQuery = 1000
+QueryFile = /Users/hrakebul/Documents/code/query-performance/dbp-40000-random.log
+Namespaces = /Users/hrakebul/Documents/code/query-performance/dbpedia_prefix.sparql
+
+[Query]
+CountFeatures = /Users/hrakebul/Documents/code/query-performance/count_feature_list.txt
+ValueFeatures = /Users/hrakebul/Documents/code/query-performance/value_feature_list.txt
+QueryAlgebra = /Users/hrakebul/Documents/code/query-performance/libs/apache-jena-2.10.1/bin/qparse
+TrainingQuery = /Users/hrakebul/Documents/code/query-performance/1000/x_query.txt
+TrainingAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/1000/x_features.txt
+TrainingQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/1000/y_time.txt
+ValidationQuery = /Users/hrakebul/Documents/code/query-performance/1000/xval_query.txt
+TestQuery = /Users/hrakebul/Documents/code/query-performance/1000/xtest_query.txt
+TestQuerySmall = /Users/hrakebul/Documents/code/query-performance/xtest_query_small20.txt
+
+[QueryClustering]
+K = 20
+DistanceHungarian = /Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/scripts/qdistance-hungarian
+RandomShuffelMaxIters = 100
+KmediodsMaxIters = 100
+HungarianClusterCach = /Users/hrakebul/Documents/code/query-performance/1000/cluster_cach_hungarian
+HungarianCenterCach = /Users/hrakebul/Documents/code/query-performance/1000/center_cach_hungarian
+
+TrainingExtraFeatures = /Users/hrakebul/Documents/code/query-performance/1000/x_features_extra.txt
+ValidationExtraFeatures = /Users/hrakebul/Documents/code/query-performance/1000/xval_features_extra.txt
+TestExtraFeatures = /Users/hrakebul/Documents/code/query-performance/1000/xtest_features_extra.txt
+
+
+TrainingSimilarityVectorfeature = /Users/hrakebul/Documents/code/query-performance/1000/x_features_simvec.txt
+ValidationSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/1000/xval_features_simvec.txt
+TestSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/1000/xtest_features_simvec.txt
+
+TrainingDistanceHungarianMatrix = /Users/hrakebul/Documents/code/query-performance/1000/training_distance_hungarian_matrix.nogit
+
+[General]
+DatasetDirectory = 1000

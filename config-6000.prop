@@ -1,0 +1,53 @@
+[DBpedia]
+Endpoint = http://localhost:3030/dbpedia/sparql
+#total number of the queries including training, validation, and test
+TotalQuery = 6000
+QueryFile = /Users/hrakebul/Documents/code/query-performance/dbp-40000-random.log
+Namespaces = /Users/hrakebul/Documents/code/query-performance/dbpedia_prefix.sparql
+
+[Query]
+TestQuerySmall = /Users/hrakebul/Documents/code/query-performance/xtest_query_small20.txt
+CountFeatures = /Users/hrakebul/Documents/code/query-performance/count_feature_list.txt
+ValueFeatures = /Users/hrakebul/Documents/code/query-performance/value_feature_list.txt
+QueryAlgebra = /Users/hrakebul/Documents/code/query-performance/libs/apache-jena-2.10.1/bin/qparse
+TrainingQuery = /Users/hrakebul/Documents/code/query-performance/6000/x_query.txt
+TrainingAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/x_features.txt
+ValidationAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/xval_features.txt
+TestAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features.txt
+TrainingQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/y_time.txt
+ValidationQuery = /Users/hrakebul/Documents/code/query-performance/6000/xval_query.txt
+TestQuery = /Users/hrakebul/Documents/code/query-performance/6000/xtest_query.txt
+
+AllQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/y_time.csv
+
+TDBTrainingExecutionTime = /Users/hrakebul/Documents/code/query-performance/6000/y_time_tdb.txt
+TDBValidationExecutionTime = /Users/hrakebul/Documents/code/query-performance/6000/yval_time_tdb.txt
+TDBTestExecutionTime = /Users/hrakebul/Documents/code/query-performance/6000/ytest_time_tdb.txt
+
+
+TDBTrainingRecordCount = /Users/hrakebul/Documents/code/query-performance/6000/y_record_tdb.txt
+TDBValidationRecordCount = /Users/hrakebul/Documents/code/query-performance/6000/yval_record_tdb.txt
+TDBTestRecordCount = /Users/hrakebul/Documents/code/query-performance/6000/ytest_record_tdb.txt
+
+[QueryClustering]
+K = 15
+DistanceHungarian = /Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/scripts/qdistance-hungarian
+RandomShuffelMaxIters = 100
+KmediodsMaxIters = 100
+HungarianClusterCach = /Users/hrakebul/Documents/code/query-performance/6000/cluster_cach_hungarian
+HungarianCenterCach = /Users/hrakebul/Documents/code/query-performance/6000/center_cach_hungarian
+
+TrainingExtraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/x_features_extra.txt
+ValidationExtraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/xval_features_extra.txt
+TestExtraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features_extra.txt
+
+
+TrainingSimilarityVectorfeature = /Users/hrakebul/Documents/code/query-performance/6000/x_features_simvec.txt
+ValidationSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/6000/xval_features_simvec.txt
+TestSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features_simvec.txt
+
+TrainingDistanceHungarianMatrix = /Users/hrakebul/Documents/code/query-performance/6000/training_distance_hungarian_matrix.nogit
+
+[General]
+DatasetDirectory = 6000
+TDBAssembly = /Users/hrakebul/Documents/code/sw/jena_and_fuseki/jena-fuseki-1.0.0/assembler-dbpedia.ttl
