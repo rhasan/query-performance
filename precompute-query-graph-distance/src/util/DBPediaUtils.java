@@ -94,6 +94,12 @@ public class DBPediaUtils {
 		return refineForDBPedia(q1);
 	}
 	
+	public static void prettyPrintSparql(String sparql){
+		System.out.println(DBPediaUtils.getParam(sparql, "query"));
+		
+	}
+	
+	
 	public static void main(String[] args) {
 		//q2:/sparql?timeout=0&debug=on&query=%0A%09%09%09%09%09%09SELECT+%2A+WHERE+%7B+%0A%09%09%09%09%09%09%09%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FFox_Broadcasting_Company%3E+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23type%3E+%3Fname+%7D%0A++++++++%09%09%09%09%09UNION%0A++++++++%09%09%09%09%09%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FFox_Broadcasting_Company%3E+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fsubject%3E+%3Fname+%7D+%0A++++++++%09%09%09%09%7D%0A++++++++%09%09%09+&default-graph-uri=http%3A%2F%2Fdbpedia.org&format=application%2Fsparql-results%2Bjson
 		//String q1= "/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&output=json&query=PREFIX%20rdfs%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%20SELECT%20*%20WHERE%20%7B%20%3Fcity%20a%20%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FPlace%3E%3B%20rdfs%3Alabel%20%27Boulaide%27%40en.%20%20%3Fairport%20a%20%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FAirport%3E.%20%7B%3Fairport%20%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fcity%3E%20%3Fcity%7D%20UNION%20%7B%3Fairport%20%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Flocation%3E%20%3Fcity%7D%20UNION%20%7B%3Fairport%20%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2FcityServed%3E%20%3Fcity.%7D%20UNION%20%7B%3Fairport%20%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fcity%3E%20%3Fcity.%20%7D%7B%3Fairport%20%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2Fiata%3E%20%3Fiata.%7D%20UNION%20%20%7B%3Fairport%20%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FiataLocationIdentifier%3E%20%3Fiata.%20%7D%20OPTIONAL%20%7B%20%3Fairport%20foaf%3Ahomepage%20%3Fairport_home.%20%7D%20OPTIONAL%20%7B%20%3Fairport%20rdfs%3Alabel%20%3Fname.%20%7D%20OPTIONAL%20%7B%20%3Fairport%20%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2Fnativename%3E%20%3Fairport_name.%7D%20FILTER%20%28%20%21bound%28%3Fname%29%20%7C%7C%20langMatches%28%20lang%28%3Fname%29%2C%20%27de%27%29%20%29%7D";

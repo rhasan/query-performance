@@ -298,6 +298,10 @@ public class TDBExecutionAndFeature {
 		PrintStream psValidation = new PrintStream(prop.getProperty("ValidationAlgebraFeatures"));
 		PrintStream psTest = new PrintStream(prop.getProperty("TestAlgebraFeatures"));
 		
+		psTraining.println(ClusteringConfiguration.getAlgebraFeatureHeader());
+		psValidation.println(ClusteringConfiguration.getAlgebraFeatureHeader());
+		psTest.println(ClusteringConfiguration.getAlgebraFeatureHeader());
+		
 		generateAlgebraFeatures(psTraining, trainingQueries);
 		generateAlgebraFeatures(psValidation, validationQueries);
 		generateAlgebraFeatures(psTest, testQueries);

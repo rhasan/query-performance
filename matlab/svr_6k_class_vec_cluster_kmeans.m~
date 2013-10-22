@@ -16,43 +16,53 @@ fprintf('Loading Data ...\n')
 
 %load ('ex5data1.mat');
 
-X = csvread('../6000/x_features.txt');
-Xval = csvread('../6000/xval_features.txt');
-Xtest = csvread('../6000/xtest_features.txt');
+X = csvread('../6000/x_features.txt',1,0);
+Xval = csvread('../6000/xval_features.txt',1,0);
+Xtest = csvread('../6000/xtest_features.txt',1,0);
 
 
-y = csvread('../6000/y_time.txt');
-yval = csvread('../6000/yval_time.txt');
-ytest = csvread('../6000/ytest_time.txt');
+y = csvread('../6000/y_time.txt',1,0);
+yval = csvread('../6000/yval_time.txt',1,0);
+ytest = csvread('../6000/ytest_time.txt',1,0);
 
 %y = csvread('../6000/y_record_tdb.txt');
 %yval = csvread('../6000/yval_record_tdb.txt');
 %ytest = csvread('../6000/ytest_record_tdb.txt');
 
 
-X_extra = csvread('../6000/x_features_simvec.txt');
-Xval_extra = csvread('../6000/xval_features_simvec.txt');
-Xtest_extra = csvread('../6000/xtest_features_simvec.txt');
+X_extra = csvread('../6000/x_features_simvec.txt',1,0);
+Xval_extra = csvread('../6000/xval_features_simvec.txt',1,0);
+Xtest_extra = csvread('../6000/xtest_features_simvec.txt',1,0);
 
 [ X, Xval, Xtest ] = merge_extra_features(X, Xval, Xtest, X_extra, Xval_extra, Xtest_extra);
 
+
+
+X_class = csvread('../6000/x_features_class_kmeans.txt');
+Xval_class = csvread('../6000/xval_features_class_kmeans.txt');
+Xtest_class = csvread('../6000/xtest_features_class_kmeans.txt');
+
+[ X, Xval, Xtest ] = merge_extra_features(X, Xval, Xtest, X_class, Xval_class, Xtest_class);
+
 %selected_features = [1 2 3 4 5 6 18 19];
 %removing useless features
-selected_features = mean(X)~=0;
 
-outlier = 1500;
-X = X(y <= outlier,:);
-y = y(y <= outlier,:);
 % 
-Xval = Xval(yval <= outlier,:);
-yval = yval(yval <= outlier,:);
-% 
+%outlier = 1500;
+%X = X(y <= outlier,:);
+%y = y(y <= outlier,:);
+% % 
+%Xval = Xval(yval <= outlier,:);
+%yval = yval(yval <= outlier,:);
+% % 
 Xtest = Xtest(ytest <= outlier,:);
 ytest = ytest(ytest <= outlier,:);
 
 
 %selected_features = [1 2 3 4 5 6 8 17 18 19 23];
 %selected_features = [1:24];
+
+selected_features = mean(X)~=0;
 [ X, Xval, Xtest] = select_features(selected_features,X, Xval, Xtest);
 
 % m = Number of examples

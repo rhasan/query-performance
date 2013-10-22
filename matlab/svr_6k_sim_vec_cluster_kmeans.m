@@ -30,29 +30,30 @@ ytest = csvread('../6000/ytest_time.txt');
 %ytest = csvread('../6000/ytest_record_tdb.txt');
 
 
-X_extra = csvread('../6000/x_features_simvec.txt');
-Xval_extra = csvread('../6000/xval_features_simvec.txt');
-Xtest_extra = csvread('../6000/xtest_features_simvec.txt');
+X_extra = csvread('../6000/x_features_simvec_kmeans.txt');
+Xval_extra = csvread('../6000/xval_features_simvec_kmeans.txt');
+Xtest_extra = csvread('../6000/xtest_features_simvec_kmeans.txt');
 
 [ X, Xval, Xtest ] = merge_extra_features(X, Xval, Xtest, X_extra, Xval_extra, Xtest_extra);
 
 %selected_features = [1 2 3 4 5 6 18 19];
 %removing useless features
-selected_features = mean(X)~=0;
 
+% 
 outlier = 1500;
 X = X(y <= outlier,:);
 y = y(y <= outlier,:);
-% 
+% % 
 Xval = Xval(yval <= outlier,:);
 yval = yval(yval <= outlier,:);
-% 
+% % 
 Xtest = Xtest(ytest <= outlier,:);
 ytest = ytest(ytest <= outlier,:);
 
 
 %selected_features = [1 2 3 4 5 6 8 17 18 19 23];
 %selected_features = [1:24];
+selected_features = mean(X)~=0;
 [ X, Xval, Xtest] = select_features(selected_features,X, Xval, Xtest);
 
 % m = Number of examples

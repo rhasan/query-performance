@@ -47,5 +47,6 @@
 			<attribute name="javadoc_location" value="file:/Users/hrakebul/Documents/code/weka/weka-3-6-10/doc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/libsvm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

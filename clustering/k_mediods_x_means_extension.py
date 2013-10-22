@@ -2,6 +2,7 @@ import numpy as np
 import pylab as pl
 import jellyfish
 
+#empty clusters are removed
 def initial_random_centers(X,K):
     randidx = np.random.permutation(range(np.size(X,0)))
     centers = X[randidx[0:K], :]
@@ -28,8 +29,8 @@ def find_closest_centers(X,center_idxs,distance_matrix):
         if min_j == -1:
             print "###debug####",min_d,min_j
 
-    for j in center_idxs:
-        idx[j] = j
+    #for j in center_idxs:
+    #    idx[j] = j
     return idx
 
 def compute_centers(X, idx, center_idxs,distance_matrix):

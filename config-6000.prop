@@ -14,9 +14,13 @@ TrainingQuery = /Users/hrakebul/Documents/code/query-performance/6000/x_query.tx
 TrainingAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/x_features.txt
 ValidationAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/xval_features.txt
 TestAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features.txt
-TrainingQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/y_time.txt
+
 ValidationQuery = /Users/hrakebul/Documents/code/query-performance/6000/xval_query.txt
 TestQuery = /Users/hrakebul/Documents/code/query-performance/6000/xtest_query.txt
+
+TrainingQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/y_time.txt
+ValidationQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/yval_time.txt
+TestQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/ytest_time.txt
 
 AllQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/y_time.csv
 
@@ -30,7 +34,9 @@ TDBValidationRecordCount = /Users/hrakebul/Documents/code/query-performance/6000
 TDBTestRecordCount = /Users/hrakebul/Documents/code/query-performance/6000/ytest_record_tdb.txt
 
 [QueryClustering]
-K = 15
+# K is for clustering by kmediods
+K = 10
+XMEANS_MAX_K = 100
 DistanceHungarian = /Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/scripts/qdistance-hungarian
 RandomShuffelMaxIters = 100
 KmediodsMaxIters = 100
@@ -45,6 +51,31 @@ TestExtraFeatures = /Users/hrakebul/Documents/code/query-performance/6000/xtest_
 TrainingSimilarityVectorfeature = /Users/hrakebul/Documents/code/query-performance/6000/x_features_simvec.txt
 ValidationSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/6000/xval_features_simvec.txt
 TestSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features_simvec.txt
+
+
+TrainingSimilarityVectorfeatureKmeans = /Users/hrakebul/Documents/code/query-performance/6000/x_features_simvec_kmeans.txt
+ValidationSimilarityVectorFeatureKmeans = /Users/hrakebul/Documents/code/query-performance/6000/xval_features_simvec_kmeans.txt
+TestSimilarityVectorFeatureKmeans = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features_simvec_kmeans.txt
+
+TrainingClassVectorfeatureKmeans = /Users/hrakebul/Documents/code/query-performance/6000/x_features_class_kmeans.txt
+ValidationClassVectorFeatureKmeans = /Users/hrakebul/Documents/code/query-performance/6000/xval_features_class_kmeans.txt
+TestClassVectorFeatureKmeans = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features_class_kmeans.txt
+
+TrainingTimeClassKmeans = /Users/hrakebul/Documents/code/query-performance/6000/x_features_class_label_kmeans.txt
+ValidationTimeClassKmeans = /Users/hrakebul/Documents/code/query-performance/6000/xval_features_class_label_kmeans.txt
+TestTimeClassKmeans = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features_class_label_kmeans.txt
+
+TrainingClassVectorfeatureXmeans = /Users/hrakebul/Documents/code/query-performance/6000/x_features_class_xmeans.txt
+ValidationClassVectorFeatureXmeans = /Users/hrakebul/Documents/code/query-performance/6000/xval_features_class_xmeans.txt
+TestClassVectorFeatureXmeans = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features_class_xmeans.txt
+
+TrainingTimeClassXmeans = /Users/hrakebul/Documents/code/query-performance/6000/x_features_class_label_xmeans.txt
+ValidationTimeClassXmeans = /Users/hrakebul/Documents/code/query-performance/6000/xval_features_class_label_xmeans.txt
+TestTimeClassXmeans = /Users/hrakebul/Documents/code/query-performance/6000/xtest_features_class_label_xmeans.txt
+
+
+
+
 
 TrainingDistanceHungarianMatrix = /Users/hrakebul/Documents/code/query-performance/6000/training_distance_hungarian_matrix.nogit
 
