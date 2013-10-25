@@ -22,6 +22,11 @@ TrainingQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6
 ValidationQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/yval_time.txt
 TestQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/ytest_time.txt
 
+TrainingQueryExecutionTimesPredicted = /Users/hrakebul/Documents/code/query-performance/6000/y_time_pred.txt
+ValidationQueryExecutionTimesPredicted = /Users/hrakebul/Documents/code/query-performance/6000/yval_time_pred.txt
+TestQueryExecutionTimesPredicted = /Users/hrakebul/Documents/code/query-performance/6000/ytest_time_pred.txt
+
+
 AllQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/6000/y_time.csv
 
 TDBTrainingExecutionTime = /Users/hrakebul/Documents/code/query-performance/6000/y_time_tdb.txt

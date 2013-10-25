@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ClusteringConfiguration {
+public class ProjectConfiguration {
 	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-6000.prop";
 	private String distanceMatrixFile = null;
 	private String trainingQueryExecutionTimesFile = null;
@@ -48,11 +48,16 @@ public class ClusteringConfiguration {
 	private String trainingSimilarityVectorfeatureFile;
 	private String validationSimilarityVectorFeatureFile;
 	private String testSimilarityVectorFeatureFile;
+
+	
+	private String trainingQueryExecutionTimesPredictedFile;
+	private String validationQueryExecutionTimesPredictedFile;
+	private String testQueryExecutionTimesPredictedFile;
 	
 	
-	public ClusteringConfiguration() throws IOException {
+	public ProjectConfiguration() throws IOException {
 		prop = new Properties();
-		prop.load(new FileInputStream(ClusteringConfiguration.CONFIG_FILE));
+		prop.load(new FileInputStream(ProjectConfiguration.CONFIG_FILE));
 		loadConfig();
 	}
 	
@@ -101,6 +106,11 @@ public class ClusteringConfiguration {
 		validationAlgebraFeaturesFile = prop.getProperty("ValidationAlgebraFeatures");
 		testAlgebraFeaturesFile = prop.getProperty("TestAlgebraFeatures");
 
+
+		trainingQueryExecutionTimesPredictedFile = prop.getProperty("TrainingQueryExecutionTimesPredicted");
+		validationQueryExecutionTimesPredictedFile = prop.getProperty("ValidationQueryExecutionTimesPredicted");
+		testQueryExecutionTimesPredictedFile = prop.getProperty("TestQueryExecutionTimesPredicted");
+	
 		
 
 		
@@ -189,6 +199,18 @@ public class ClusteringConfiguration {
 	public String getTestTimeClassKmeansFile() {
 		return testTimeClassKmeansFile;
 	}
+	
+	public String getValidationQueryExecutionTimesPredictedFile() {
+		return validationQueryExecutionTimesPredictedFile;
+	}
+	public String getTrainingQueryExecutionTimesPredictedFile() {
+		return trainingQueryExecutionTimesPredictedFile;
+	}
+	public String getTestQueryExecutionTimesPredictedFile() {
+		return testQueryExecutionTimesPredictedFile;
+	}
+	
+	
 	
 	public int getxMeansMaxK() {
 		return xMeansMaxK;

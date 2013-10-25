@@ -129,7 +129,7 @@ public class DBPediaUtils {
 		//String q = "/sparql/?query=SELECT+%3Fabstract+WHERE+{+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FFloral_design%3E+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fabstract%3E+%3Fabstract.+FILTER+langMatches(lang(%3Fabstract)%2C+%27en%27)+}&format=json";
 		
 		//TLE set to mean value
-		String q = "/sparql?query=SELECT+DISTINCT++%3Furi%0AWHERE%0A++%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FRadu_Sabo%3E+%3Fp+%3Furi+.%0A++++%3Furi+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23type%3E+%3Fx%0A++%7D%0A"; //1986
+		//String q = "/sparql?query=SELECT+DISTINCT++%3Furi%0AWHERE%0A++%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FRadu_Sabo%3E+%3Fp+%3Furi+.%0A++++%3Furi+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23type%3E+%3Fx%0A++%7D%0A"; //1986
 		//String q = "/sparql?query=SELECT+DISTINCT++%3Furi%0AWHERE%0A++%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FMaurice_D._G._Scott%3E+%3Fp+%3Furi+.%0A++++%3Furi+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23type%3E+%3Fx%0A++%7D%0A"; //2215
 		//String q ="/sparql?query=SELECT+DISTINCT++%3Furi%0AWHERE%0A++%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FHafar_Al-Batin%3E+%3Fp+%3Furi+.%0A++++%3Furi+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23type%3E+%3Fx%0A++%7D%0A"; //2298
 		
@@ -175,6 +175,10 @@ public class DBPediaUtils {
 		//String q = "/sparql?query=SELECT+DISTINCT++%3Furi%0AWHERE%0A++%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FTrevor_Lucas%3E+%3Fp+%3Furi+.%0A++++%3Furi+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23type%3E+%3Fx%0A++%7D%0A";//1048 //original value: 47691 or 56.632s
 		//String q ="/sparql?query=SELECT+DISTINCT++%3Furi%0AWHERE%0A++%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2F1549_Mikko%3E+%3Fp+%3Furi+.%0A++++%3Furi+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23type%3E+%3Fx%0A++%7D%0A"; //1181 //original 42633 or 58.303 s
 		
+		
+		//just for pretty print
+		//String q = "/sparql?query=SELECT+DISTINCT+%3Fb+%0AWHERE+%7B%0A%3Fb+%3Fv_p+%3Fv_o+%7D+OFFSET+121000+LIMIT+1000";
+		String q = "/sparql?query=PREFIX++%3A+++++%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2F%3E%0APREFIX++skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0APREFIX++dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E%0A%0ASELECT++%3Fdc0+%3Fsk0+%3Fsk1+%3Fsk2%0AWHERE%0A++%7B+%3AGold+dcterms%3Asubject+%3Fdc0+.%0A++++%3Fdc0+skos%3Abroader+%3Fs0+.%0A++++%3Fs0+skos%3AprefLabel+%3Fsk0+.%0A++++%3Fs0+skos%3Abroader+%3Fs1+.%0A++++%3Fs1+skos%3AprefLabel+%3Fsk1+.%0A++++%3Fs1+skos%3Abroader+%3Fs2+.%0A++++%3Fs2+skos%3AprefLabel+%3Fsk2%0A++++FILTER+%28+%28+%28+%28+%28+%28+%28+%28+%28+%28+%28+%28+%28+%28+%28+%28+%3Fsk2+%3D+%22Astronomy%22%40en+%29+%7C%7C+%28+%3Fsk2+%3D+%22Biology%22%40en+%29+%29+%7C%7C+%28+%3Fsk2+%3D+%22Chemistry%22%40en+%29+%29+%7C%7C+%28+%3Fsk2+%3D+%22Physics%22%40en+%29+%29+%7C%7C+%28+%3Fsk1+%3D+%22Astronomy%22%40en+%29+%29+%7C%7C+%28+%3Fsk1+%3D+%22Biology%22%40en+%29+%29+%7C%7C+%28+%3Fsk1+%3D+%22Chemistry%22%40en+%29+%29+%7C%7C+%28+%3Fsk1+%3D+%22Physics%22%40en+%29+%29+%7C%7C+%28+%3Fsk0+%3D+%22Astronomy%22%40en+%29+%29+%7C%7C+%28+%3Fsk0+%3D+%22Biology%22%40en+%29+%29+%7C%7C+%28+%3Fsk0+%3D+%22Chemistry%22%40en+%29+%29+%7C%7C+%28+%3Fsk0+%3D+%22Physics%22%40en+%29+%29+%7C%7C+%28+%3Fdc0+%3D+%22http%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3AAstronomy%22+%29+%29+%7C%7C+%28+%3Fdc0+%3D+%22http%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3ABiology%22+%29+%29+%7C%7C+%28+%3Fdc0+%3D+%22http%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3AChemistry%22+%29+%29+%7C%7C+%28+%3Fdc0+%3D+%22http%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3APhysics%22+%29+%29%0A++%7D%0A";
 		
 		System.out.println(getQueryForDBpedia(q));
 		

@@ -65,13 +65,13 @@ import com.hp.hpl.jena.sparql.path.P_ZeroOrOne;
 import com.hp.hpl.jena.sparql.path.Path;
 
 
-public class FeatureExtractor {
+public class AlgebraFeatureExtractor {
 	
 	
 	Map<String, Integer> featureIndex = new HashMap<String, Integer>();
 	Map<Op,Boolean> visited = null;
 	
-	public FeatureExtractor() {
+	public AlgebraFeatureExtractor() {
 	
 		featureIndex.put("triple", 0);
 		featureIndex.put("bgp", 1);
@@ -769,7 +769,7 @@ public class FeatureExtractor {
 	}
 	
 	public static void main(String[] args) {
-		FeatureExtractor fe = new FeatureExtractor();
+		AlgebraFeatureExtractor fe = new AlgebraFeatureExtractor();
 		
 		//String queryStr = "PREFIX foaf:    <http://xmlns.com/foaf/0.1/> SELECT ?name ?email WHERE {  ?x foaf:knows ?y . ?y foaf:name ?name .  OPTIONAL { ?y foaf:mbox ?email }  } offset 2000 limit 1000";
 		

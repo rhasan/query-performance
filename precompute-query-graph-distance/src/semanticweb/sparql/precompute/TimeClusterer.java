@@ -26,6 +26,7 @@ import util.DBPediaUtils;
 import weka.clusterers.SimpleKMeans;
 import weka.clusterers.XMeans;
 import weka.core.Attribute;
+import weka.core.DenseInstance;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -34,7 +35,7 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.RemoveType;
 import weka.filters.unsupervised.attribute.StringToNominal;
 
-public class KmeansClusterByTime {
+public class TimeClusterer {
 	
 	static int DEBUG = 0;
 	final static int K_MEANS_MAX_ITERATION = 100;
@@ -49,12 +50,15 @@ public class KmeansClusterByTime {
 	private List<String> validationQueries;
 	Instances exTimeInstances;
 	
-	private ClusteringConfiguration config;
+	private ProjectConfiguration config;
 	int K;
 	private int[] clusterSizes;
 	
-	public KmeansClusterByTime() throws FileNotFoundException, IOException {
-		config = new ClusteringConfiguration();
+	private XMeans xmeans;
+	
+	
+	public TimeClusterer() throws FileNotFoundException, IOException {
+		config = new ProjectConfiguration();
 		K = config.getNumberOfClusters();
 	}
 	
@@ -79,7 +83,7 @@ public class KmeansClusterByTime {
 		atts.addElement(instances.attribute(0));
 		
 		Instances newInstances = new Instances("Training", atts, 0);
-		Instance instance = new Instance(1);
+		Instance instance = new DenseInstance(1);
 		instance.setValue(0, Double.valueOf(instances.attribute(0).name()));
 		newInstances.add(instance);
 		//System.out.println(newInstances);
@@ -98,12 +102,7 @@ public class KmeansClusterByTime {
 		return newInstances;
 	}
 	
-	/**
-	 * Clusters the queries according to the execution times and returns the initial mediods (random, not minimized) for each cluster
-	 * @param numberOfClusters
-	 * @return
-	 * @throws Exception
-	 */
+
 	public void clusterTrainingExecutionTime(int numberOfClusters) throws Exception {
 		
 
@@ -249,7 +248,7 @@ public class KmeansClusterByTime {
 	public void createClassVectorFeatures(String outFile) throws IOException {
 		PrintStream ps = new PrintStream(outFile);
 		
-		ps.println(ClusteringConfiguration.getTimeClusterBinaryVecFeatureHeader(K));
+		ps.println(ProjectConfiguration.getTimeClusterBinaryVecFeatureHeader(K));
 		
 		DecimalFormat df=new DecimalFormat("0.000");
 		for(int i=0;i<trainingQueries.size();i++) {
@@ -278,7 +277,7 @@ public class KmeansClusterByTime {
 	
 	public void createTimeClassLabelFile(PrintStream ps, int[] assignments) throws IOException {
 		//PrintStream ps = new PrintStream(config.getTrainingTimeClassKmeansFile());
-		ps.println(ClusteringConfiguration.getTimClusterLabelHeader());
+		ps.println(ProjectConfiguration.getTimClusterLabelHeader());
 		for(int label:assignments) {
 			ps.println(label);
 		}
@@ -313,7 +312,7 @@ public class KmeansClusterByTime {
 		Scanner in = new Scanner(new FileInputStream(config.getTestQueryFile()));
 
 		PrintStream psClassVec = new PrintStream(config.getTestClassVectorFeatureKmeansFile());
-		psClassVec.println(ClusteringConfiguration.getTimeClusterBinaryVecFeatureHeader(K));
+		psClassVec.println(ProjectConfiguration.getTimeClusterBinaryVecFeatureHeader(K));
 		
 		
 		System.out.println("Predicting clusters for test dataset");
@@ -395,7 +394,7 @@ public class KmeansClusterByTime {
 		//PrintStream ps = new PrintStream(validationPredictionFile);
 		//PrintStream psSimVec = new PrintStream(config.getValidationSimilarityVectorFeatureKmeansFile());
 		PrintStream psClassVec = new PrintStream(config.getValidationClassFeatureKmeansFile());
-		psClassVec.println(ClusteringConfiguration.getTimeClusterBinaryVecFeatureHeader(K));
+		psClassVec.println(ProjectConfiguration.getTimeClusterBinaryVecFeatureHeader(K));
 		
 		
 		System.out.println("Predicting clusters for validation dataset");
@@ -577,7 +576,7 @@ public class KmeansClusterByTime {
 
 		System.out.println("Instances: "+ exTimeInstances.numInstances());
 		
-		XMeans xmeans = new XMeans();
+		xmeans = new XMeans();
 		xmeans.setSeed(K_MEANS_SEED);
 		xmeans.setMaxIterations(100);
 		xmeans.setCutOffFactor(0.5);
@@ -647,7 +646,79 @@ public class KmeansClusterByTime {
 		
 	}
 		
+	public void generateValidationLabelDataXmeans() throws Exception {
+		
+		//PrintStream ps = new PrintStream(new File(config.getValidationTimeClassXmeansFile()));
+		//ps.println(ClusteringConfiguration.getTimClusterLabelHeader());
+		
+		CSVLoader valLoader = new CSVLoader();
+		valLoader.setFile(new File(config.getValidationQueryExecutionTimesFile()));
+		
+		Instances valInstances = valLoader.getDataSet();
+		
+		Enumeration<Instance> e = valInstances.enumerateInstances();
+		
+		List<Integer> asnmnts = new ArrayList<Integer>();
+		while(e.hasMoreElements()) {
+			Instance ins = e.nextElement();
+			int c = xmeans.clusterInstance(ins); 
+			asnmnts.add(c);
+			
+		}
+		createTimeClassLabelFile(new PrintStream(new File(config.getValidationTimeClassXmeansFile())), Ints.toArray(asnmnts));
+		//ps.close();
+		
+		
+	}
+	public void generateTestLabelDataXmeans() throws Exception {
+		
+		//PrintStream ps = new PrintStream(new File(config.getValidationTimeClassXmeansFile()));
+		//ps.println(ClusteringConfiguration.getTimClusterLabelHeader());
+		
+		CSVLoader testLoader = new CSVLoader();
+		testLoader.setFile(new File(config.getTestQueryExecutionTimesFile()));
+		
+		Instances testInstances = testLoader.getDataSet();
+		
+		Enumeration<Instance> e = testInstances.enumerateInstances();
+		
+		List<Integer> asnmnts = new ArrayList<Integer>();
+		while(e.hasMoreElements()) {
+			Instance ins = e.nextElement();
+			int c = xmeans.clusterInstance(ins); 
+			asnmnts.add(c);
+			
+		}
+		createTimeClassLabelFile(new PrintStream(new File(config.getTestTimeClassXmeansFile())), Ints.toArray(asnmnts));
+		//ps.close();
+		
+		
+	}	
 	
+	public void processValidationDataXMeans() throws Exception {
+		Scanner in = new Scanner(new FileInputStream(config.getValidationQueryFile()));
+		testQueries = new ArrayList<String>();
+		while(in.hasNext()) {
+			String query = in.nextLine();
+			testQueries.add(query);
+		}
+		in.close();
+		
+		generateValidationLabelDataXmeans();
+	}
+	
+	public void processTestDataXmeans() throws Exception {
+		Scanner in = new Scanner(new FileInputStream(config.getTestQueryFile()));
+		validationQueries = new ArrayList<String>();
+		while(in.hasNext()) {
+			String query = in.nextLine();
+			validationQueries.add(query);
+		}
+		in.close();
+		
+		generateTestLabelDataXmeans();
+		
+	}
 	
 	public void processTrainingDataXmeans() throws Exception {
 		
@@ -669,9 +740,18 @@ public class KmeansClusterByTime {
 		System.out.println("Elapsed time: "+watch.elapsed(TimeUnit.SECONDS)+" seconds");		
 	}	
 	
+	public int[] getClusterAssignments() {
+		return trainingClusterAssignments;
+	}
+	
+	public int getNumberOfClusters() {
+		return K;
+	}
+	
+	
 	public static void main(String[] args) throws Exception {
 		
-		KmeansClusterByTime km = new KmeansClusterByTime();
+		TimeClusterer km = new TimeClusterer();
 		
 		//km.setDebugMode();
 		//km.createKmeansClusterFeatures();
@@ -679,6 +759,8 @@ public class KmeansClusterByTime {
 		//km.debug();
 		
 		km.processTrainingDataXmeans();
+		km.processValidationDataXMeans();
+		km.processTestDataXmeans();
 	}
 
 

@@ -298,9 +298,9 @@ public class TDBExecutionAndFeature {
 		PrintStream psValidation = new PrintStream(prop.getProperty("ValidationAlgebraFeatures"));
 		PrintStream psTest = new PrintStream(prop.getProperty("TestAlgebraFeatures"));
 		
-		psTraining.println(ClusteringConfiguration.getAlgebraFeatureHeader());
-		psValidation.println(ClusteringConfiguration.getAlgebraFeatureHeader());
-		psTest.println(ClusteringConfiguration.getAlgebraFeatureHeader());
+		psTraining.println(ProjectConfiguration.getAlgebraFeatureHeader());
+		psValidation.println(ProjectConfiguration.getAlgebraFeatureHeader());
+		psTest.println(ProjectConfiguration.getAlgebraFeatureHeader());
 		
 		generateAlgebraFeatures(psTraining, trainingQueries);
 		generateAlgebraFeatures(psValidation, validationQueries);
@@ -311,7 +311,7 @@ public class TDBExecutionAndFeature {
 	private void generateAlgebraFeatures(PrintStream ps, List<String> queries) throws IOException {
 		
 		
-		FeatureExtractor fe = new FeatureExtractor();
+		AlgebraFeatureExtractor fe = new AlgebraFeatureExtractor();
 		
 		for(String q:queries) {
 			String queryStr = DBPediaUtils.getQueryForDBpedia(q);

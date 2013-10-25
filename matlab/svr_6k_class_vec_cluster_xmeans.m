@@ -38,9 +38,9 @@ Xtest_extra = csvread('../6000/xtest_features_simvec.txt',1,0);
 
 
 
-X_class = csvread('../6000/x_features_class_xmeans.txt');
-Xval_class = csvread('../6000/xval_features_class_xmeans.txt');
-Xtest_class = csvread('../6000/xtest_features_class_xmeans.txt');
+X_class = csvread('../6000/x_features_class_xmeans.txt',1,0);
+Xval_class = csvread('../6000/xval_features_class_xmeans.txt',1,0);
+Xtest_class = csvread('../6000/xtest_features_class_xmeans.txt',1,0);
 
 [ X, Xval, Xtest ] = merge_extra_features(X, Xval, Xtest, X_class, Xval_class, Xtest_class);
 
@@ -51,10 +51,10 @@ Xtest_class = csvread('../6000/xtest_features_class_xmeans.txt');
 outlier = 1500;
 X = X(y <= outlier,:);
 y = y(y <= outlier,:);
-% % 
+% % % 
 Xval = Xval(yval <= outlier,:);
 yval = yval(yval <= outlier,:);
-% % 
+% % % 
 Xtest = Xtest(ytest <= outlier,:);
 ytest = ytest(ytest <= outlier,:);
 
@@ -62,7 +62,8 @@ ytest = ytest(ytest <= outlier,:);
 %selected_features = [1 2 3 4 5 6 8 17 18 19 23];
 %selected_features = [1:24];
 
-selected_features = mean(X)~=0;
+%selected_features = mean(X)~=0;
+selected_features = var(X)~=0;
 [ X, Xval, Xtest] = select_features(selected_features,X, Xval, Xtest);
 
 % m = Number of examples
