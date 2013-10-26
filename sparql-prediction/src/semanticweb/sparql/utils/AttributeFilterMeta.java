@@ -1,4 +1,4 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.utils;
 
 import weka.core.Instances;
 import weka.filters.unsupervised.attribute.Standardize;

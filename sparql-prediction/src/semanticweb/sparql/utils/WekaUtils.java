@@ -1,4 +1,4 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.utils;
 
 import java.io.File;
 import java.io.IOException;

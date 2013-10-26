@@ -1,6 +1,8 @@
-package semanticweb.sparql.precompute;
+package test;
 
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
+
+import semanticweb.sparql.utils.StatUtils;
 
 import com.hp.hpl.jena.sparql.sse.Tags;
 

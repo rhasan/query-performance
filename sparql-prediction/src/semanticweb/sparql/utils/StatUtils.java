@@ -1,4 +1,6 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.utils;
+
+import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 
 public class StatUtils {
 
@@ -20,4 +22,14 @@ public class StatUtils {
 		
 		return 1.0-ssr/sst;
 	}
+	
+	public static double correlationCoefficient(double[] y_true,double[] y_pred){
+		
+		PearsonsCorrelation pc = new PearsonsCorrelation();
+
+		
+		return pc.correlation(y_true, y_pred);
+		
+	
+	}	
 }

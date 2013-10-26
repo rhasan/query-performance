@@ -1,4 +1,4 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.prediction;
 
 import ged.AlgorithmConfig;
 
@@ -21,6 +21,7 @@ import com.google.common.base.Stopwatch;
 import com.google.common.primitives.Ints;
 
 import semanticweb.RDFGraphMatching;
+import semanticweb.sparql.config.ProjectConfiguration;
 import util.DBPediaUtils;
 
 import weka.clusterers.SimpleKMeans;

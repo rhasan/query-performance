@@ -1,4 +1,4 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.suggestion;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +12,10 @@ import java.util.Random;
 import org.apache.commons.math3.random.RandomData;
 import org.apache.commons.math3.random.RandomDataGenerator;
 
+import semanticweb.sparql.config.ProjectConfiguration;
+import semanticweb.sparql.utils.AttributeFilterMeta;
+import semanticweb.sparql.utils.GeneralUtils;
+import semanticweb.sparql.utils.WekaUtils;
 import util.DBPediaUtils;
 import weka.core.Attribute;
 import weka.core.DistanceFunction;

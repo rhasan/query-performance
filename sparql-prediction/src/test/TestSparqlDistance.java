@@ -4,7 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import semanticweb.sparql.precompute.SparqlDistance;
+import semanticweb.sparql.preprocess.SparqlDistance;
+
 
 public class TestSparqlDistance {
 

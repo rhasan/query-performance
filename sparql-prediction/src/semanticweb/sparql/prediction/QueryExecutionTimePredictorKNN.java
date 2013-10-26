@@ -1,7 +1,14 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.prediction;
 
 import java.io.IOException;
 import java.util.HashMap;
+
+
+import semanticweb.sparql.config.ProjectConfiguration;
+import semanticweb.sparql.utils.AttributeFilterMeta;
+import semanticweb.sparql.utils.GeneralUtils;
+import semanticweb.sparql.utils.StatUtils;
+import semanticweb.sparql.utils.WekaUtils;
 
 
 
@@ -9,6 +16,7 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.lazy.IBk;
 import weka.core.DistanceFunction;
 import weka.core.EuclideanDistance;
+import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.SelectedTag;
 import weka.core.Tag;
@@ -102,9 +110,24 @@ public class QueryExecutionTimePredictorKNN {
 		GeneralUtils.saveExecutionTimePredictions(y, config.getTrainingQueryExecutionTimesPredictedFile());
 		
 		System.out.println(eval.toSummaryString("\nTraining Results\n======\n", false));
-		//System.out.println(eval.toMatrixString());		
-		
-		
+		//System.out.println(eval.toMatrixString());
+		System.out.println("R-squared (training): "+eval.correlationCoefficient()*eval.correlationCoefficient());
+
+//		double[] predictedValues = new double[trainingInstances.numInstances()];
+//		double[] originalValues = new double[trainingInstances.numInstances()];
+//		
+//		//int[] predictedClasses = new int[trainingInstances.numInstances()];
+//		for(int i=0;i<trainingInstances.numInstances();i++) {
+//			Instance instance = trainingInstances.instance(i);
+//			
+//			originalValues[i] = instance.classValue();
+//			predictedValues[i] = y[i];
+//			//predictedClasses[i] = timeClassifier.classifyInstance(instance); 
+//		}
+//		
+//		
+//		double rSquared = StatUtils.rSquared(originalValues, predictedValues);
+//		System.out.println("R-squared (training): "+rSquared);		
 		
 	}
 	
@@ -113,6 +136,22 @@ public class QueryExecutionTimePredictorKNN {
 		double[] y = eval.evaluateModel(knnModel, testInstances);
 		GeneralUtils.saveExecutionTimePredictions(y, config.getTestQueryExecutionTimesPredictedFile());
 		System.out.println(eval.toSummaryString("\nTest Results\n======\n", false));
+		System.out.println("R-squared (test): "+eval.correlationCoefficient()*eval.correlationCoefficient());
+		
+//		double[] predictedValues = new double[testInstances.numInstances()];
+//		double[] originalValues = new double[testInstances.numInstances()];
+//		for(int i=0;i<testInstances.numInstances();i++) {
+//			Instance instance = testInstances.instance(i);
+//			
+//			originalValues[i] = instance.classValue();
+//			predictedValues[i] = y[i];
+//
+//		}
+//		
+//		double rSquared = StatUtils.rSquared(originalValues, predictedValues);
+//		System.out.println("R-squared (test): "+rSquared);
+		
+		
 		
 	}
 	

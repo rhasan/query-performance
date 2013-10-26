@@ -1,4 +1,4 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.preprocess;
 
 import java.util.ArrayList;
 import java.util.Collection;

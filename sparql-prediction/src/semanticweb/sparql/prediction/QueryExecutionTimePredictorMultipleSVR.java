@@ -1,4 +1,4 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.prediction;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,6 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.collections.map.DefaultedMap;
+
+import semanticweb.sparql.config.ProjectConfiguration;
+import semanticweb.sparql.utils.AttributeFilterMeta;
+import semanticweb.sparql.utils.GeneralUtils;
+import semanticweb.sparql.utils.StatUtils;
+import semanticweb.sparql.utils.WekaUtils;
 
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LibSVM;
@@ -245,8 +251,9 @@ public class QueryExecutionTimePredictorMultipleSVR {
 		//System.out.println("Predicted class:"+Arrays.toString(predictedClasses));
 		GeneralUtils.saveExecutionTimePredictions(predictedValues, config.getTrainingQueryExecutionTimesPredictedFile());
 		
-		double rSquared = StatUtils.rSquared(originalValues, predictedValues);
-		System.out.println("R-squared (training): "+rSquared);
+		//double rSquared = StatUtils.rSquared(originalValues, predictedValues);
+		double cCoeff = StatUtils.correlationCoefficient(originalValues, predictedValues);
+		System.out.println("R-squared (training): "+cCoeff*cCoeff);	
 	}
 	
 	public void testExecutionTimePredictions() throws Exception {
@@ -269,8 +276,9 @@ public class QueryExecutionTimePredictorMultipleSVR {
 		
 		GeneralUtils.saveExecutionTimePredictions(predictedValues, config.getTestQueryExecutionTimesPredictedFile());
 		
-		double rSquared = StatUtils.rSquared(originalValues, predictedValues);
-		System.out.println("R-squared (test): "+rSquared);		
+		//double rSquared = StatUtils.rSquared(originalValues, predictedValues);
+		double cCoeff = StatUtils.correlationCoefficient(originalValues, predictedValues);
+		System.out.println("R-squared (test): "+cCoeff*cCoeff);		
 	}
 	
 

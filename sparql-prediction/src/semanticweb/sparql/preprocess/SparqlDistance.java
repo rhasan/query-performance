@@ -1,4 +1,4 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.preprocess;
 
 import ged.AlgorithmConfig;
 

@@ -1,4 +1,4 @@
-package semanticweb.sparql.precompute;
+package semanticweb.sparql.preprocess;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,6 +10,8 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import semanticweb.sparql.config.ProjectConfiguration;
+import semanticweb.sparql.utils.GeneralUtils;
 import util.DBPediaUtils;
 
 import com.google.common.base.Stopwatch;
