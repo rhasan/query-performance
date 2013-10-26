@@ -48,34 +48,19 @@ public class TDBExecutionAndFeature {
 	
 	public void loadTrainingQueries() throws IOException {
 		String trainingQueryFile = prop.getProperty("TrainingQuery");
-		trainingQueries = loadQuries(trainingQueryFile);
+		trainingQueries = GeneralUtils.loadQuries(trainingQueryFile);
 	}
 
 	public void loadValidationQueries() throws IOException {
 		String validationQueryFile = prop.getProperty("ValidationQuery");
-		validationQueries = loadQuries(validationQueryFile);
+		validationQueries = GeneralUtils.loadQuries(validationQueryFile);
 	}
 	public void loadTestQueries() throws IOException {
 		String testQueryFile = prop.getProperty("TestQuery");
-		testQueries = loadQuries(testQueryFile);
+		testQueries = GeneralUtils.loadQuries(testQueryFile);
 	}	
 	
-	public List<String> loadQuries(String queryFile) throws IOException {
-		List<String> queries;
-		FileInputStream fis = new FileInputStream(queryFile);
-		Scanner in = new Scanner(fis);
-		queries = null;
-		queries = new ArrayList<String>();
-		
-		while(in.hasNext()) {
-			String line = in.nextLine();
-			//System.out.println(line);
-			queries.add(line);
-		}	
-		fis.close();
-		
-		return queries;
-	}
+
 	
 	public ResultSet queryTDB(String qStr) {
 		String q = DBPediaUtils.refineForDBPedia(qStr);

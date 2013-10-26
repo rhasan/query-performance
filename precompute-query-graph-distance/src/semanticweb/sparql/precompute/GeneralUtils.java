@@ -1,0 +1,40 @@
+package semanticweb.sparql.precompute;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class GeneralUtils {
+	public static void saveExecutionTimePredictions(double[] y, String fileName) throws IOException {
+		PrintStream ps = new PrintStream(fileName);
+		ps.println(ProjectConfiguration.getExecutionTimeHeader());
+		
+		
+		
+		for(double yi:y) {
+			ps.println(yi);
+		}
+		ps.close();
+		
+	}
+	
+	public static List<String> loadQuries(String queryFile) throws IOException {
+		List<String> queries;
+		FileInputStream fis = new FileInputStream(queryFile);
+		Scanner in = new Scanner(fis);
+		queries = null;
+		queries = new ArrayList<String>();
+		
+		while(in.hasNext()) {
+			String line = in.nextLine();
+			//System.out.println(line);
+			queries.add(line);
+		}	
+		fis.close();
+		
+		return queries;
+	}	
+}

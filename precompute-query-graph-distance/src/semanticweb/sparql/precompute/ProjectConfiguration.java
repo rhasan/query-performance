@@ -7,6 +7,7 @@ import java.util.Properties;
 
 public class ProjectConfiguration {
 	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-6000.prop";
+	private String configFile;
 	private String distanceMatrixFile = null;
 	private String trainingQueryExecutionTimesFile = null;
 	private String validationQueryExecutionTimesFile;
@@ -15,6 +16,12 @@ public class ProjectConfiguration {
 	private String trainingQueryFile = null;
 	private String validationQueryFile = null;
 	private String testQueryFile = null;
+	
+	
+	
+	private String trainingARFFFile;
+	private String validationARFFFile;
+	private String testARFFFile;	
 	
 	private int numberOfClusters = 2;
 	private int xMeansMaxK = 2;
@@ -54,10 +61,15 @@ public class ProjectConfiguration {
 	private String validationQueryExecutionTimesPredictedFile;
 	private String testQueryExecutionTimesPredictedFile;
 	
+	public ProjectConfiguration() throws IOException{
+		this(ProjectConfiguration.CONFIG_FILE);
+
+	}
 	
-	public ProjectConfiguration() throws IOException {
+	public ProjectConfiguration(String cFile) throws IOException {
+		this.configFile = cFile;
 		prop = new Properties();
-		prop.load(new FileInputStream(ProjectConfiguration.CONFIG_FILE));
+		prop.load(new FileInputStream(cFile));
 		loadConfig();
 	}
 	
@@ -112,9 +124,9 @@ public class ProjectConfiguration {
 		testQueryExecutionTimesPredictedFile = prop.getProperty("TestQueryExecutionTimesPredicted");
 	
 		
-
-		
-
+		trainingARFFFile = prop.getProperty("TrainingARFFFile");
+		validationARFFFile = prop.getProperty("ValidationARFFFile");
+		testARFFFile = prop.getProperty("TestARFFFile");
 		
 	}	
 	
@@ -210,7 +222,15 @@ public class ProjectConfiguration {
 		return testQueryExecutionTimesPredictedFile;
 	}
 	
-	
+	public String getValidationARFFFile() {
+		return validationARFFFile;
+	}
+	public String getTrainingARFFFile() {
+		return trainingARFFFile;
+	}
+	public String getTestARFFFile() {
+		return testARFFFile;
+	}
 	
 	public int getxMeansMaxK() {
 		return xMeansMaxK;

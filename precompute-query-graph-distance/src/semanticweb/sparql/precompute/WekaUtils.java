@@ -15,6 +15,7 @@ import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.AddValues;
@@ -296,6 +297,14 @@ public class WekaUtils {
 		return res;
 		
 		
+	}
+	
+	public static void saveInstances(Instances dataSet, String fileName) throws Exception{
+		ArffSaver saver = new ArffSaver();
+		saver.setInstances(dataSet);
+		 saver.setFile(new File(fileName));
+		 //saver.setDestination(new File("./data/test.arff"));   // **not** necessary in 3.5.4 and later
+		 saver.writeBatch();		
 	}
 
 }
