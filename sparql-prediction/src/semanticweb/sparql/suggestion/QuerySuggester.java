@@ -14,9 +14,9 @@ import org.apache.commons.math3.random.RandomDataGenerator;
 
 import semanticweb.sparql.config.ProjectConfiguration;
 import semanticweb.sparql.utils.AttributeFilterMeta;
+import semanticweb.sparql.utils.DBPediaUtils;
 import semanticweb.sparql.utils.GeneralUtils;
 import semanticweb.sparql.utils.WekaUtils;
-import util.DBPediaUtils;
 import weka.core.Attribute;
 import weka.core.DistanceFunction;
 import weka.core.EuclideanDistance;

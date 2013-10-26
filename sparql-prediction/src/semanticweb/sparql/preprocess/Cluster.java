@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 import com.google.common.base.Stopwatch;
 
 import semanticweb.RDFGraphMatching;
-import util.DBPediaUtils;
+import semanticweb.sparql.utils.DBPediaUtils;
 
 public class Cluster {
 	private String centerFile = null;

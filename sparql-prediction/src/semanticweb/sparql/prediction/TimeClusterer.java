@@ -22,7 +22,7 @@ import com.google.common.primitives.Ints;
 
 import semanticweb.RDFGraphMatching;
 import semanticweb.sparql.config.ProjectConfiguration;
-import util.DBPediaUtils;
+import semanticweb.sparql.utils.DBPediaUtils;
 
 import weka.clusterers.SimpleKMeans;
 import weka.clusterers.XMeans;

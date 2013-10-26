@@ -22,7 +22,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
 import semanticweb.RDFGraphMatching;
-import util.DBPediaUtils;
+import semanticweb.sparql.utils.DBPediaUtils;
 
 public class SparqlDistance {
 	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-6000.prop";

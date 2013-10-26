@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.collections.map.DefaultedMap;
 
-import util.DBPediaUtils;
+import semanticweb.sparql.utils.DBPediaUtils;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;

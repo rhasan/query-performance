@@ -11,8 +11,8 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import semanticweb.sparql.config.ProjectConfiguration;
+import semanticweb.sparql.utils.DBPediaUtils;
 import semanticweb.sparql.utils.GeneralUtils;
-import util.DBPediaUtils;
 
 import com.google.common.base.Stopwatch;
 import com.hp.hpl.jena.query.Dataset;
