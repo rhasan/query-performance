@@ -70,6 +70,7 @@ public class AlgebraFeatureExtractor {
 	
 	Map<String, Integer> featureIndex = new HashMap<String, Integer>();
 	Map<Op,Boolean> visited = null;
+	boolean debug = false;
 	
 	public AlgebraFeatureExtractor() {
 	
@@ -102,7 +103,9 @@ public class AlgebraFeatureExtractor {
 		
 		
 	}
-	
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 	int treeHeight = 0;
 	public double[] extractFeatures(String queryStr){
 		Query query = QueryFactory.create(queryStr) ;
@@ -113,7 +116,9 @@ public class AlgebraFeatureExtractor {
         //System.out.println(op.getName());
         
         
-        //System.out.println("AL:\n "+op) ;		
+        if(debug) {
+        	System.out.println("Algebra tree:\n "+op) ;
+        }
         //System.out.println("------------------------") ;		
         double[] features = getFeatures(op);
         
@@ -789,7 +794,10 @@ public class AlgebraFeatureExtractor {
 		//String q = "/sparql?query=SELECT+DISTINCT+%3Fs+%0A%3Fontology_affiliation%0A%3Fontology_abstract%0A%3Fontology_campus%0A%3Fontology_chairman%0A%3Fontology_chancellor%0A%3Fontology_city%0A%3Fontology_country%0A%3Fontology_dean%0A%3Fontology_director%0A%3Fontology_endowment%0A%3Fontology_facultySize%0A%3Fontology_formerName%0A%3Fontology_foundingDate%0A%3Fontology_mascot%0A%3Fontology_motto%0A%3Fontology_numberOfDoctoralStudents%0A%3Fontology_numberOfPostgraduateStudents%0A%3Fontology_numberOfStudents%0A%3Fontology_numberOfUndergraduateStudents%0A%3Fontology_officialSchoolColour%0A%3Fontology_other%0A%3Fontology_president%0A%3Fontology_principal%0A%3Fontology_province%0A%3Fontology_rector%0A%3Fontology_sport%0A%3Fontology_staff%0A%3Fontology_state%0A%3Fontology_thumbnail%0A%3Fontology_logo%0A%3Fontology_type%0A%3Fontology_viceChancellor%0A%3Fproperty_academicDean%0A%3Fproperty_academicStaff%0A%3Fproperty_acronym%0A%3Fproperty_address%0A%3Fproperty_administrativeStaff%0A%3Fproperty_advert%0A%3Fproperty_affiliation%0A%3Fproperty_affiliations%0A%3Fproperty_afiliation%0A%3Fproperty_lat+%0A%3Fproperty_long%0A%3Fproperty_established%0AWHERE+%7B%0A%3Fs+a+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FEducationalInstitution%3E%2C+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FUniversity%3E+.%0A%3Fs+%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fcountry%3E+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FBrazil%3E+.%0A%3Fcountry+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fsubject%3E+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3ASouth_American_countries%3E+.%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Faffiliation%3E+%3Fontology_affiliation+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fabstract%3E+%3Fontology_abstract+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fcampus%3E+%3Fontology_campus+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fchairman%3E+%3Fontology_chairman+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fchancellor%3E+%3Fontology_chancellor+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fcity%3E+%3Fontology_city+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fcountry%3E+%3Fontology_country+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fdean%3E+%3Fontology_dean+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fdirector%3E+%3Fontology_director+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fendowment%3E+%3Fontology_endowment+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FfacultySize%3E+%3Fontology_facultySize+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FformerName%3E+%3Fontology_formerName+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FfoundingDate%3E+%3Fontology_foundingDate+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fmascot%3E+%3Fontology_mascot+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fmotto%3E+%3Fontology_motto+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FnumberOfDoctoralStudents%3E+%3Fontology_numberOfDoctoralStudents+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FnumberOfPostgraduateStudents%3E+%3Fontology_numberOfPostgraduateStudents+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FnumberOfStudents%3E+%3Fontology_numberOfStudents+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FnumberOfUndergraduateStudents%3E+%3Fontology_numberOfUndergraduateStudents+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FofficialSchoolColour%3E+%3Fontology_officialSchoolColour+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fother%3E+%3Fontology_other+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fpresident%3E+%3Fontology_president+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fprincipal%3E+%3Fontology_principal+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fprovince%3E+%3Fontology_province+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Frector%3E+%3Fontology_rector+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fsport%3E+%3Fontology_sport+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fstaff%3E+%3Fontology_staff+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fstate%3E+%3Fontology_state+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Fthumbnail%3E+%3Fontology_thumbnail+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Ftype%3E+%3Fontology_type+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FviceChancellor%3E+%3Fontology_viceChancellor+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2FwikiPageExternalLink%3E+%3Fproperty_wikiPageExternalLink+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2FacademicDean%3E+%3Fproperty_academicDean+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2FacademicStaff%3E+%3Fproperty_academicStaff+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2Facronym%3E+%3Fproperty_acronym+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2Faddress%3E+%3Fproperty_address+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2FadministrativeStaff%3E+%3Fproperty_administrativeStaff+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2Fadvert%3E+%3Fproperty_advert+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2Faffiliation%3E+%3Fproperty_affiliation+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2Faffiliations%3E+%3Fproperty_affiliations+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2Fafiliation%3E+%3Fproperty_afiliation+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23lat%3E+%3Fproperty_lat+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23long%3E+%3Fproperty_long+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2Festablished%3E+%3Fproperty_established+.%7D%0AOPTIONAL+%7B%3Fs++%3Chttp%3A%2F%2Fdbpedia.org%2Fontology%2Flogo%3E+%3Fontology_logo+.%7D%0AFILTER+%28+langMatches%28lang%28%3Fontology_abstract%29%2C+%22es%22%29+%7C%7C+langMatches%28lang%28%3Fontology_abstract%29%2C+%22en%22%29+%29%0A%7D%0ALIMIT+4000%0A&results=json&output=json";
 		//String queryStr = DBPediaUtils.getQueryForDBpedia(q);
 		
-		String queryStr = "PREFIX foaf:       <http://xmlns.com/foaf/0.1/> SELECT DISTINCT ?name ?nick { ?x foaf:mbox <mailt:person@server> . ?x foaf:name ?name  OPTIONAL { ?x foaf:nick ?nick }}";
+		
+		fe.setDebug(true);
+		//String queryStr = "PREFIX foaf:       <http://xmlns.com/foaf/0.1/> SELECT DISTINCT ?name ?nick WHERE { ?x foaf:mbox <mailto:person@server.com> . ?x foaf:name ?name  OPTIONAL { ?x foaf:nick ?nick }}";
+		String queryStr = "PREFIX foaf:       <http://xmlns.com/foaf/0.1/> SELECT DISTINCT ?name ?nick WHERE { ?x foaf:mbox <mailto:person@server.com> . ?x foaf:name ?name  OPTIONAL { ?x foaf:nick ?nick }}";
 		System.out.println(queryStr);
 		double[] features = fe.extractFeatures(queryStr);
 		

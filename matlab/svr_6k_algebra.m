@@ -25,16 +25,6 @@ y = csvread('../6000/y_time.txt',1,0);
 yval = csvread('../6000/yval_time.txt',1,0);
 ytest = csvread('../6000/ytest_time.txt',1,0);
 
-%y = csvread('../6000/y_record_tdb.txt');
-%yval = csvread('../6000/yval_record_tdb.txt');
-%ytest = csvread('../6000/ytest_record_tdb.txt');
-
-
-X_extra = csvread('../6000/x_features_simvec.txt',1,0);
-Xval_extra = csvread('../6000/xval_features_simvec.txt',1,0);
-Xtest_extra = csvread('../6000/xtest_features_simvec.txt',1,0);
-
-[ X, Xval, Xtest ] = merge_extra_features(X, Xval, Xtest, X_extra, Xval_extra, Xtest_extra);
 
 % % 
 % outlier = 1500;
@@ -104,7 +94,7 @@ nu=1;
 %     learningCurveSVR(X_nor, y, ...
 %                   Xval_nor, yval, ...
 %                   C,nu);
-% figure(2);
+% figure(3);
 % plot(1:m, error_train, 1:m, error_val);
 % title('Learning curve for linear regression')
 % legend('Train', 'Cross Validation')
@@ -126,6 +116,7 @@ nu=1;
 
 
 tic;model = svmtrain(y,X_nor,['-s 4 -t 2 -n ' num2str(nu) ' -c ' num2str(C)]);toc
+
 
 [y_pred,acc_train,prob_train] = svmpredict(y,X_nor,model);
 %y_pred = X_poly * theta;
@@ -223,3 +214,4 @@ a = annotation('textarrow', [.3 .5], [.6 .5],'String','Perfect prediction');
 axis([min_test max_test min_test max_test])
 hline = refline([1 0]);
 set(hline,'Color','g');
+

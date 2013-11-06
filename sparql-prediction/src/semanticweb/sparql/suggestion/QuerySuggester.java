@@ -144,13 +144,14 @@ public class QuerySuggester {
 	}
 	
 	public void testWithRandomTestQuery() throws Exception{
-		int testQueryIndex = getRandomTestQueryIndex();
+		//int testQueryIndex = getRandomTestQueryIndex();
+		int testQueryIndex = 1180;
 		Instance testQueryInstance = testInstances.instance(testQueryIndex);
 		String testQueryStringEncoded = testQueries.get(testQueryIndex);
 		System.out.println("Generating suggestions for the query:");
 		DBPediaUtils.prettyPrintSparql(testQueryStringEncoded);
 		
-		int[] suggestionIndices = getKSuggestions(testQueryInstance, 3);
+		int[] suggestionIndices = getKSuggestions(testQueryInstance, 5);
 		
 		System.out.println("Query suggestions are:");
 		System.out.println(Arrays.toString(suggestionIndices));

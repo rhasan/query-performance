@@ -31,7 +31,7 @@ public class QueryExecutionTimePredictorKNN {
 	Instances testInstances;
 	AttributeFilterMeta trainingFeaturesMeta;
 	IBk knnModel;
-	int K4KNN = 5;
+	int K4KNN = 2;
 	
 	public QueryExecutionTimePredictorKNN() throws IOException {
 		config = new ProjectConfiguration(CONFIG_FILE);
@@ -131,6 +131,30 @@ public class QueryExecutionTimePredictorKNN {
 		
 	}
 	
+	
+	public void crossValidation() throws Exception {
+		Evaluation eval = new Evaluation(trainingInstances);
+		double[] y = eval.evaluateModel(knnModel, validationInstances);
+		GeneralUtils.saveExecutionTimePredictions(y, config.getValidationQueryExecutionTimesPredictedFile());
+		System.out.println(eval.toSummaryString("\nValidation Results\n======\n", false));
+		System.out.println("R-squared (validation): "+eval.correlationCoefficient()*eval.correlationCoefficient());
+		
+//		double[] predictedValues = new double[testInstances.numInstances()];
+//		double[] originalValues = new double[testInstances.numInstances()];
+//		for(int i=0;i<testInstances.numInstances();i++) {
+//			Instance instance = testInstances.instance(i);
+//			
+//			originalValues[i] = instance.classValue();
+//			predictedValues[i] = y[i];
+//
+//		}
+//		
+//		double rSquared = StatUtils.rSquared(originalValues, predictedValues);
+//		System.out.println("R-squared (test): "+rSquared);
+		
+		
+		
+	}	
 	public void testModel() throws Exception {
 		Evaluation eval = new Evaluation(trainingInstances);
 		double[] y = eval.evaluateModel(knnModel, testInstances);
@@ -159,6 +183,7 @@ public class QueryExecutionTimePredictorKNN {
 		QueryExecutionTimePredictorKNN predictor = new QueryExecutionTimePredictorKNN();
 		predictor.loadData();
 		predictor.trainKNNRegression();
+		predictor.crossValidation();
 		predictor.testModel();
 	}
 }
