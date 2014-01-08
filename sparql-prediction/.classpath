@@ -15,7 +15,7 @@
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/GMT.jar"/>
-	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/guava-14.0-rc1.jar"/>
+	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/guava-14.0-rc1.jar" sourcepath="/Users/hrakebul/.m2/repository/com/google/guava/guava/14.0-rc1/guava-14.0-rc1-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/httpclient-4.2.3.jar" sourcepath="/Users/hrakebul/.m2/repository/org/apache/httpcomponents/httpclient/4.2.3/httpclient-4.2.3-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/httpcore-4.2.2.jar"/>
 	<classpathentry kind="lib" path="/Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/lib/javadoc-core.jar"/>

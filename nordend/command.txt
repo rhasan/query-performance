@@ -1,0 +1,1 @@
+nohup java -cp $(echo lib/*.jar | tr ' ' ':') semanticweb.sparql.preprocess.NordendQueryExecution http://localhost:3030/dbpedia/sparql queries/access.log-20120727&

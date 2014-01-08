@@ -15,8 +15,8 @@ public class LibTests {
 	public static void rSquareTest(){
 		
 		PearsonsCorrelation pc = new PearsonsCorrelation();
-		double[] y_true = {3, -0.5, 2, 7};
-		double[] y_pred = {2.5, 0.0, 2, 8};
+		double[] y_true = {1.0, 1.0, 5.0, 2.0, 1.0, 1.0, 1.0, 3.0, 1.0, 3.0, 1.0, 4.0, 3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+		double[] y_pred = {5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0};
 		
 		double pcVal = pc.correlation(y_true, y_pred);
 		
@@ -32,15 +32,18 @@ public class LibTests {
 	 */
 	public static void main(String[] args) {
 
-
-		LibSVM svr = new LibSVM();
-		//System.out.println(LibSVM.TAGS_SVMTYPE);
+//
+//		LibSVM svr = new LibSVM();
+//		//System.out.println(LibSVM.TAGS_SVMTYPE);
+//		
+//		for(Tag tag:LibSVM.TAGS_SVMTYPE) {
+//			System.out.println(tag);
+//		}
+//		
+//		SelectedTag nuSVR = new SelectedTag(LibSVM.SVMTYPE_NU_SVR, LibSVM.TAGS_SVMTYPE);
 		
-		for(Tag tag:LibSVM.TAGS_SVMTYPE) {
-			System.out.println(tag);
-		}
 		
-		SelectedTag nuSVR = new SelectedTag(LibSVM.SVMTYPE_NU_SVR, LibSVM.TAGS_SVMTYPE);
+		rSquareTest();
 		
 		
 	}

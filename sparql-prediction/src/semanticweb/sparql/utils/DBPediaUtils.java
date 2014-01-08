@@ -1,10 +1,12 @@
 package semanticweb.sparql.utils;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
 
 
 public class DBPediaUtils {
@@ -99,6 +101,14 @@ public class DBPediaUtils {
 		
 	}
 	
+	
+	public static String getEncodedQuery(String q) {
+		Charset utf8charset = Charset.forName("UTF-8");
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		BasicNameValuePair p = new BasicNameValuePair("query", q);
+		params.add(p);
+		return URLEncodedUtils.format(params, utf8charset);
+	}
 	
 	public static void main(String[] args) {
 		//q2:/sparql?timeout=0&debug=on&query=%0A%09%09%09%09%09%09SELECT+%2A+WHERE+%7B+%0A%09%09%09%09%09%09%09%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FFox_Broadcasting_Company%3E+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23type%3E+%3Fname+%7D%0A++++++++%09%09%09%09%09UNION%0A++++++++%09%09%09%09%09%7B+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FFox_Broadcasting_Company%3E+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fsubject%3E+%3Fname+%7D+%0A++++++++%09%09%09%09%7D%0A++++++++%09%09%09+&default-graph-uri=http%3A%2F%2Fdbpedia.org&format=application%2Fsparql-results%2Bjson
