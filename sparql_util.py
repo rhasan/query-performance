@@ -14,12 +14,15 @@ class SarqlUtil:
             dbp_prefix_f.close()          
     
     def url_to_sparql(self,query_log):
+
         try:
             par = urlparse.parse_qs(urlparse.urlparse(query_log).query)
+            #print par
             sparql_query = par['query'][0]
+
             return sparql_query
         except Exception as inst:
-            raise Exception("Invalid SPARQL query log");
+            raise Exception("Invalid SPARQL query log",inst);
 
     def dbp_log_to_sparql(self,line):
         try:

@@ -1,0 +1,36 @@
+
+Training Results
+======
+
+Correlation coefficient                  0.8693
+Mean absolute error                    223.8695
+Root mean squared error               1230.3595
+Relative absolute error                 15.7601 %
+Root relative squared error             49.4288 %
+Total Number of Instances             1260     
+
+R-squared (training): 0.7556794975291803
+
+Validation Results
+======
+
+Correlation coefficient                  0.9643
+Mean absolute error                    203.1224
+Root mean squared error                588.2004
+Relative absolute error                 14.8915 %
+Root relative squared error             26.7151 %
+Total Number of Instances              420     
+
+R-squared (validation): 0.9297999007514492
+
+Test Results
+======
+
+Correlation coefficient                  0.9838
+Mean absolute error                    172.1132
+Root mean squared error                395.5125
+Relative absolute error                 13.0458 %
+Root relative squared error             18.3049 %
+Total Number of Instances              420     
+
+R-squared (test): 0.9679372307583249

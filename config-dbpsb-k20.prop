@@ -1,0 +1,91 @@
+[DBpedia]
+#Endpoint = http://localhost:3030/dbpedia/sparql
+#total number of the queries including training, validation, and test
+#TotalQuery = 6000
+#QueryFile = /Users/hrakebul/Documents/code/query-performance/dbp-40000-random.log
+Namespaces = /Users/hrakebul/Documents/code/query-performance/dbpedia_prefix.sparql
+
+[Query]
+#TestQuerySmall = /Users/hrakebul/Documents/code/query-performance/xtest_query_small20.txt
+CountFeatures = /Users/hrakebul/Documents/code/query-performance/count_feature_list.txt
+ValueFeatures = /Users/hrakebul/Documents/code/query-performance/value_feature_list.txt
+QueryAlgebra = /Users/hrakebul/Documents/code/query-performance/libs/apache-jena-2.10.1/bin/qparse
+TrainingQuery = /Users/hrakebul/Documents/code/query-performance/dbpsb/x_query.txt
+TrainingAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/dbpsb/x_features.txt
+ValidationAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/dbpsb/xval_features.txt
+TestAlgebraFeatures = /Users/hrakebul/Documents/code/query-performance/dbpsb/xtest_features.txt
+
+ValidationQuery = /Users/hrakebul/Documents/code/query-performance/dbpsb/xval_query.txt
+TestQuery = /Users/hrakebul/Documents/code/query-performance/dbpsb/xtest_query.txt
+
+TrainingQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/dbpsb/y_time.txt
+ValidationQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/dbpsb/yval_time.txt
+TestQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/dbpsb/ytest_time.txt
+
+TrainingQueryExecutionTimesPredicted = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/y_time_pred.txt
+ValidationQueryExecutionTimesPredicted = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/yval_time_pred.txt
+TestQueryExecutionTimesPredicted = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/ytest_time_pred.txt
+
+
+AllQueryExecutionTimes = /Users/hrakebul/Documents/code/query-performance/dbpsb/y_time.csv
+
+TDBTrainingExecutionTime = /Users/hrakebul/Documents/code/query-performance/dbpsb/y_time_tdb.txt
+TDBValidationExecutionTime = /Users/hrakebul/Documents/code/query-performance/dbpsb/yval_time_tdb.txt
+TDBTestExecutionTime = /Users/hrakebul/Documents/code/query-performance/dbpsb/ytest_time_tdb.txt
+
+
+TDBTrainingRecordCount = /Users/hrakebul/Documents/code/query-performance/dbpsb/y_record.txt
+TDBValidationRecordCount = /Users/hrakebul/Documents/code/query-performance/dbpsb/yval_record.txt
+TDBTestRecordCount = /Users/hrakebul/Documents/code/query-performance/dbpsb/ytest_record.txt
+
+[QueryClustering]
+# K is for clustering by kmediods
+K = 20
+XMEANS_MAX_K = 100
+DistanceHungarian = /Users/hrakebul/Documents/code/query-performance/clustering/graph-edit-distance/scripts/qdistance-hungarian
+RandomShuffelMaxIters = 100
+KmediodsMaxIters = 100
+HungarianClusterCach = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/cluster_cach_hungarian
+HungarianCenterCach = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/center_cach_hungarian
+
+TrainingExtraFeatures = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/x_features_extra.txt
+ValidationExtraFeatures = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xval_features_extra.txt
+TestExtraFeatures = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xtest_features_extra.txt
+
+
+TrainingSimilarityVectorfeature = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/x_features_simvec.txt
+ValidationSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xval_features_simvec.txt
+TestSimilarityVectorFeature = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xtest_features_simvec.txt
+
+
+TrainingSimilarityVectorfeatureKmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/x_features_simvec_kmeans.txt
+ValidationSimilarityVectorFeatureKmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xval_features_simvec_kmeans.txt
+TestSimilarityVectorFeatureKmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xtest_features_simvec_kmeans.txt
+
+TrainingClassVectorfeatureKmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/x_features_class_kmeans.txt
+ValidationClassVectorFeatureKmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xval_features_class_kmeans.txt
+TestClassVectorFeatureKmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xtest_features_class_kmeans.txt
+
+TrainingTimeClassKmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/x_features_class_label_kmeans.txt
+ValidationTimeClassKmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xval_features_class_label_kmeans.txt
+TestTimeClassKmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xtest_features_class_label_kmeans.txt
+
+TrainingClassVectorfeatureXmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/x_features_class_xmeans.txt
+ValidationClassVectorFeatureXmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xval_features_class_xmeans.txt
+TestClassVectorFeatureXmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xtest_features_class_xmeans.txt
+
+TrainingTimeClassXmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/x_features_class_label_xmeans.txt
+ValidationTimeClassXmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xval_features_class_label_xmeans.txt
+TestTimeClassXmeans = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xtest_features_class_label_xmeans.txt
+
+TrainingARFFFile = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/x_features.arff
+ValidationARFFFile  = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xval_features.arff
+TestARFFFile = /Users/hrakebul/Documents/code/query-performance/dbpsb-K20/xtest_features.arff
+
+
+
+TrainingDistanceHungarianMatrix = /Users/hrakebul/Documents/code/query-performance/dbpsb/training_distance_hungarian_matrix.nogit
+
+[General]
+DatasetDirectory = dbpsb-K20
+#TDBAssembly = /Users/hrakebul/Documents/code/sw/jena_and_fuseki/jena-fuseki-1.0.0/assembler-dbpedia.ttl

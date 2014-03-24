@@ -1,0 +1,1 @@
+weka.classifiers.functions.LibSVM -S 4 -K 2 -D 3 -G 0.03 -R 0.0 -N 0.55 -M 40.0 -C 223.0 -E 0.001 -P 0.1 -model /Users/hrakebul/Documents/code/weka/weka-3-7-10 -seed 1

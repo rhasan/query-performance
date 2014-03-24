@@ -14,7 +14,15 @@ from sparql_util import SarqlUtil
 import k_mediods
 
 
-CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-6000.prop'
+#CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-6000.prop'
+#CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-knn-dbpsb-test.prop'
+
+#CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-dbpsb-k5.prop'
+#CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-dbpsb-k10.prop'
+#CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-dbpsb-k15.prop'
+CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-dbpsb-k20.prop'
+#CONFIG_FILE = '/Users/hrakebul/Documents/code/query-performance/config-dbpsb-k25.prop'
+
 #DISTANCE_MATRIX_FILE = '/Users/hrakebul/Documents/code/query-performance/20000/training_distance_hungarian_matrix.nogit'
 
 class ClusterSparql:
@@ -25,8 +33,8 @@ class ClusterSparql:
         self.config = ConfigParser.RawConfigParser()
         self.config.read(config_file)
         
-        self.total_query = self.config.getint('DBpedia','TotalQuery')
-        self.query_file = self.config.get('DBpedia','QueryFile')
+        #self.total_query = self.config.getint('DBpedia','TotalQuery')
+        #self.query_file = self.config.get('DBpedia','QueryFile')
         self.dbp_prefix_file = self.config.get('DBpedia','Namespaces')
         #self.f_extractor = FeatureExtractor()
         self.sp_util = SarqlUtil(self.dbp_prefix_file)
@@ -77,23 +85,25 @@ class ClusterSparql:
         self.X = np.array(self.queries).transpose()
 
     def load_training_queries(self,limit=None):
-        if limit == None:
-            limit = int(self.total_query*0.6)
-        
+        # if limit == None:
+        #     limit = int(self.total_query*0.6)
+        print "loading training queries:",self.training_query_file
         f = open(self.training_query_file,'rb')
         count = 0
 
         for line in f:
             #print line
-            if count >= limit:
-                break
+            # if count >= limit:
+            #     break
             try:
-                sparql_query = self.sp_util.url_to_sparql(line)
+                #sparql_query = self.sp_util.url_to_sparql(line)
+                #for the dbpsb queries, had to add /sparql/? to make it valid for url parsing
+                sparql_query = self.sp_util.url_to_sparql("/sparql/?"+line)
                 #print sparql_query
                 count += 1
                 self.queries.append(sparql_query)
-            except:
-                pass
+            except Exception as inst:
+                print "Exception", inst
         self.X = np.array(self.queries).transpose()
 
     def distance_hungarian(self,q1,q2):
