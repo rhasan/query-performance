@@ -1,8 +1,10 @@
 package semanticweb.sparql.utils;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -38,5 +40,12 @@ public class GeneralUtils {
 		fis.close();
 		
 		return queries;
-	}	
+	}
+	
+	public static void addHeader(String file, String header) throws IOException {
+		RandomAccessFile f = new RandomAccessFile(file, "rw");
+		f.seek(0); // to the beginning
+		f.write((header+"\n").getBytes());
+		f.close();
+	}
 }

@@ -238,21 +238,37 @@ public class WekaUtils {
 
 	}
 	
-	
+	public static Instances refineInstances(Instances algebraInstances, AttributeFilterMeta meta) throws Exception {
+		
+		
+		//merge algebra and simvec
+		//Instances mergedAlgSimVec = Instances.mergeInstances(algebraInstances, simVecInstances);
+		
+
+		//remove the same attributes that were removed in training data
+		//System.out.println(meta);
+		//System.out.println(Arrays.toString(meta.getRemovedAttributes()));
+		Instances filteredAlgSimVecClass = removeAttributes(algebraInstances, meta.getRemovedAttributes());		
+		
+
+		
+		//stdFilter.setInputFormat(mergedUselessFilteredAlgSimVecClass);
+		
+		Instances stdFilterdInstances = Filter.useFilter(filteredAlgSimVecClass, meta.getStandardizeFilter()); 
+		
+		return stdFilterdInstances;
+
+	}	
 	
 	/**
-	 * for loading training data
-	 * @param algebraInstances
-	 * @param simVecInstances
+	 * loading training data
+	 * @param mergedAlgSimVec algebra instances normally for applying the remove useless and standardization filtering
 	 * @return
 	 * @throws Exception
 	 */
-	public static AttributeFilterMeta refineInstances(Instances algebraInstances, Instances simVecInstances) throws Exception{
-		
+	
+	public static AttributeFilterMeta refineInstances(Instances mergedAlgSimVec) throws Exception {
 		AttributeFilterMeta res = new AttributeFilterMeta();
-		
-		//merge algebra and simvec
-		Instances mergedAlgSimVec = Instances.mergeInstances(algebraInstances, simVecInstances);
 		Map<String,Integer> attributeIndex = new HashMap<String, Integer>(); 
 
 		
@@ -296,7 +312,23 @@ public class WekaUtils {
 
 		return res;
 		
+	}
+	
+	/**
+	 * for loading training data
+	 * @param algebraInstances
+	 * @param simVecInstances
+	 * @return
+	 * @throws Exception
+	 */
+	public static AttributeFilterMeta refineInstances(Instances algebraInstances, Instances simVecInstances) throws Exception{
 		
+		
+		
+		//merge algebra and simvec
+		Instances mergedAlgSimVec = Instances.mergeInstances(algebraInstances, simVecInstances);
+		
+		return refineInstances(mergedAlgSimVec);
 	}
 	
 	public static void saveInstances(Instances dataSet, String fileName) throws Exception{

@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 import com.google.common.base.Stopwatch;
 
 import semanticweb.RDFGraphMatching;
+import semanticweb.sparql.config.ProjectConfiguration;
 import semanticweb.sparql.utils.DBPediaUtils;
 
 public class Cluster {
@@ -48,7 +49,7 @@ public class Cluster {
 	
 	public Cluster() throws IOException {
 		prop = new Properties();
-		prop.load(new FileInputStream(SparqlDistance.CONFIG_FILE));
+		prop.load(new FileInputStream(ProjectConfiguration.CONFIG_FILE));
 		loadConfig();
 		loadQuries();
 		loadCenters();
@@ -140,6 +141,9 @@ public class Cluster {
 		Scanner in = new Scanner(new FileInputStream(prop.getProperty("ValidationQuery")));
 		PrintStream ps = new PrintStream(validationPredictionFile);
 		PrintStream psSimVec = new PrintStream(validationSimilarityVectorFeature);
+		
+		psSimVec.println(ProjectConfiguration.getPatternClusterSimVecFeatureHeader(K));
+		
 		System.out.println("Predicting clusters for validation dataset");
 		Stopwatch watch = new Stopwatch();
 		watch.start();		
@@ -159,9 +163,16 @@ public class Cluster {
 	}
 	
 	public void processTestQueries() throws Exception{
+		
+		//psTraining.println(ProjectConfiguration.getAlgebraFeatureHeader());
+		//psValidation.println(ProjectConfiguration.getAlgebraFeatureHeader());
+		//psTest.println(ProjectConfiguration.getAlgebraFeatureHeader());
+		
 		Scanner in = new Scanner(new FileInputStream(prop.getProperty("TestQuery")));
 		PrintStream ps = new PrintStream(testPredictionFile);
 		PrintStream psSimVec = new PrintStream(testSimilarityVectorFeature);
+		psSimVec.println(ProjectConfiguration.getPatternClusterSimVecFeatureHeader(K));
+		
 		System.out.println("Predicting clusters for test dataset");
 		Stopwatch watch = new Stopwatch();
 		watch.start();		
@@ -273,6 +284,7 @@ public class Cluster {
 	
 	public void createTrainingSimilarityVectorFeatures() throws IOException {
 		PrintStream psSimVec = new PrintStream(trainingSimilarityVectorfeature);
+		psSimVec.println(ProjectConfiguration.getPatternClusterSimVecFeatureHeader(K));
 		for(int i=0;i<queries.size();i++) {
 			int count=0;
 			String outString = "";

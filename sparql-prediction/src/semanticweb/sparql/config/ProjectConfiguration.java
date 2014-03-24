@@ -6,7 +6,15 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ProjectConfiguration {
-	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-6000.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-6000.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-knn-dbpsb-test.prop";
+	
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k5.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k10.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k15.prop";
+	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k20.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k25.prop";
+	
 	private String configFile;
 	private String distanceMatrixFile = null;
 	private String trainingQueryExecutionTimesFile = null;
@@ -60,6 +68,11 @@ public class ProjectConfiguration {
 	private String trainingQueryExecutionTimesPredictedFile;
 	private String validationQueryExecutionTimesPredictedFile;
 	private String testQueryExecutionTimesPredictedFile;
+	
+	
+	private String  trainingNumberOfRecordsFile;
+	private String  validationNumberOfRecordsFile;
+	private String testNumberOfRecordsFile;
 	
 	public ProjectConfiguration() throws IOException{
 		this(ProjectConfiguration.CONFIG_FILE);
@@ -128,9 +141,21 @@ public class ProjectConfiguration {
 		validationARFFFile = prop.getProperty("ValidationARFFFile");
 		testARFFFile = prop.getProperty("TestARFFFile");
 		
+		
+		trainingNumberOfRecordsFile = prop.getProperty("TrainingNumberOfRecords");
+		validationNumberOfRecordsFile = prop.getProperty("ValidationNumberOfRecords");
+		testNumberOfRecordsFile = prop.getProperty("TestNumberOfRecords");		
 	}	
 	
-	
+	public String getTrainingNumberOfRecordsFile() {
+		return trainingNumberOfRecordsFile;
+	}
+	public String getValidationNumberOfRecordsFile() {
+		return validationNumberOfRecordsFile;
+	}
+	public String getTestNumberOfRecordsFile() {
+		return testNumberOfRecordsFile;
+	}
 	public String getValidationSimilarityVectorFeatureFile() {
 		return validationSimilarityVectorFeatureFile;
 	}

@@ -18,14 +18,23 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Stopwatch;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
 import semanticweb.RDFGraphMatching;
+import semanticweb.sparql.config.ProjectConfiguration;
 import semanticweb.sparql.utils.DBPediaUtils;
 
 public class SparqlDistance {
-	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-6000.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-6000.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-knn-dbpsb-test.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k10.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k5.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k15.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k20.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k25.prop";
+	
 	String trainingQueryMatrixFilename = "training_query_matrix.nogit";
 	String trainingQueryHungarianFilename = null;
 	
@@ -34,7 +43,7 @@ public class SparqlDistance {
 	public SparqlDistance() throws FileNotFoundException, IOException {
 		
 		prop = new Properties();
-		prop.load(new FileInputStream(CONFIG_FILE));
+		prop.load(new FileInputStream(ProjectConfiguration.CONFIG_FILE));
 		//System.out.println(prop.getProperty("TestQuerySmall"));
 		//System.out.println(prop.values());
 		
@@ -49,6 +58,7 @@ public class SparqlDistance {
 	
 	public void loadQuries() throws IOException {
 		String queryFile = getProperty("TrainingQuery");
+		System.out.println("TrainingQuery:"+queryFile);
 		FileInputStream fis = new FileInputStream(queryFile);
 		Scanner in = new Scanner(fis);
 		queries = null;
@@ -145,7 +155,7 @@ public class SparqlDistance {
 		DecimalFormat df=new DecimalFormat("0.000");
 		
 		PrintStream ps_error = new PrintStream("error.txt");
-		
+		System.out.println("Total training queries:"+queries.size());
 		//List<String> queryPairs = new ArrayList<String>();
 		int count = 0;
 		Stopwatch watch = new Stopwatch();
@@ -166,14 +176,14 @@ public class SparqlDistance {
 				String sparql2 = DBPediaUtils.getParam(q2, "query");
 				
 				double cost = Integer.MAX_VALUE;
+				//System.out.println("q1: "+sparql1);
+				//System.out.println("q2: "+sparql2);
 				
 				if(sparql1.isEmpty()==false && sparql2.isEmpty()==false) {
 					String rsparql1 = DBPediaUtils.refineForDBPedia(sparql1);
 					String rsparql2 = DBPediaUtils.refineForDBPedia(sparql2);
 					AlgorithmConfig algorithmConfig = AlgorithmConfig.createBipartiteHungarian();
 					RDFGraphMatching matcher = new RDFGraphMatching();
-					//System.out.println("q1: "+sparql1);
-					//System.out.println("q2: "+sparql2);
 					
 					cost = matcher.queryGraphDistance(rsparql1, rsparql2, algorithmConfig);
 					//System.out.println("Cost:"+cost);
@@ -188,7 +198,7 @@ public class SparqlDistance {
 				}
 			}
 		}	
-		
+		System.out.println("Total "+(count)+" query pairs processed");
 		ps.close();
 		ps_error.close();
 

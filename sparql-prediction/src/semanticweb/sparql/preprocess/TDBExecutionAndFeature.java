@@ -37,7 +37,7 @@ public class TDBExecutionAndFeature {
 	
 	public TDBExecutionAndFeature() throws IOException {
 		prop = new Properties();
-		prop.load(new FileInputStream(SparqlDistance.CONFIG_FILE));
+		prop.load(new FileInputStream(ProjectConfiguration.CONFIG_FILE));
 		
 		//loadAllQueries();
 		
@@ -319,6 +319,9 @@ public class TDBExecutionAndFeature {
 	}
 	
 	public static void main(String[] args) throws Exception {
+		
+		Stopwatch watch = new Stopwatch();
+		watch.start();		
 		TDBExecutionAndFeature wrapper = new TDBExecutionAndFeature();
 		//wrapper.fusekiTDBRandomlySelectedQueries();
 		
@@ -327,7 +330,8 @@ public class TDBExecutionAndFeature {
 		//sd.processTrainingQueries();
 		
 		wrapper.generateAlgebraFeatureDataset();
-		
+		watch.stop();
+		System.out.println("Total time for algebra query extraction: "+watch.elapsed(TimeUnit.MILLISECONDS)+" ms");
 		
 	}
 	

@@ -2,9 +2,6 @@ package semanticweb.sparql.prediction;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
-
-import com.google.common.base.Stopwatch;
 
 import semanticweb.sparql.config.ProjectConfiguration;
 import semanticweb.sparql.utils.AttributeFilterMeta;
@@ -25,15 +22,15 @@ import weka.core.Tag;
 import weka.core.neighboursearch.KDTree;
 import weka.core.neighboursearch.NearestNeighbourSearch;
 
-public class QueryExecutionTimePredictorKNN {
+public class NumberOfResultsPredictorKNN {
 	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-knn-6000.prop";
 	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-knn-dbpsb-test.prop";
 	
-	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k10.prop";
+	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k5.prop";
 	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k10.prop";
 	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k15.prop";
 	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k20.prop";
-	//public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k25.prop";
+	public static String CONFIG_FILE = System.getProperty("user.home")+"/Documents/code/query-performance/config-dbpsb-k25.prop";
 	
 	
 	ProjectConfiguration config;
@@ -44,7 +41,7 @@ public class QueryExecutionTimePredictorKNN {
 	IBk knnModel;
 	int K4KNN = 5;
 	
-	public QueryExecutionTimePredictorKNN() throws IOException {
+	public NumberOfResultsPredictorKNN() throws IOException {
 		config = new ProjectConfiguration(CONFIG_FILE);
 	}
 	
@@ -60,38 +57,38 @@ public class QueryExecutionTimePredictorKNN {
 	public void loadTrainingData() throws Exception {
 		Instances trainingAlgebraFeatureInstances = WekaUtils.loadCSV(config.getTrainingAlgebraFeaturesFile());
 		Instances trainingSimVecFeatureInstances = WekaUtils.loadCSV(config.getTrainingSimilarityVectorfeatureFile());
-		Instances trainingExecutionTimeInstances = WekaUtils.loadCSV(config.getTrainingQueryExecutionTimesFile());
+		Instances trainingNumOfResultsInstances = WekaUtils.loadCSV(config.getTrainingNumberOfRecordsFile());
 		
 		trainingFeaturesMeta = WekaUtils.refineInstances(trainingAlgebraFeatureInstances, trainingSimVecFeatureInstances);
 		
 		Instances features = trainingFeaturesMeta.getInstances();
-		trainingInstances = WekaUtils.addNumericLablesForRegression(features, trainingFeaturesMeta, trainingExecutionTimeInstances); 
+		trainingInstances = WekaUtils.addNumericLablesForRegression(features, trainingFeaturesMeta, trainingNumOfResultsInstances); 
 		//regressionTrainingDatasets = new HashMap<Integer, Instances>();
 	}	
 	
 	public void loadValidationtData() throws Exception {
 		Instances validationAlgebraFeatureInstances = WekaUtils.loadCSV(config.getValidationAlgebraFeaturesFile());
 		Instances validationSimVecFeatureInstances = WekaUtils.loadCSV(config.getValidationSimilarityVectorFeatureFile());
-		Instances validationtExecutionTimeInstances = WekaUtils.loadCSV(config.getValidationQueryExecutionTimesFile());
+		Instances validationtNumberOfRecordsInstances = WekaUtils.loadCSV(config.getValidationNumberOfRecordsFile());
 		
 		Instances features = WekaUtils.refineInstances(validationAlgebraFeatureInstances, validationSimVecFeatureInstances,trainingFeaturesMeta);
 		//WekaUtils.refineInstances(algebraInstances, simVecInstances, meta)
 		
 		//Instances features = featuresMeta.getInstances();
-		validationInstances = WekaUtils.addNumericLablesForRegression(features, trainingFeaturesMeta, validationtExecutionTimeInstances); 
+		validationInstances = WekaUtils.addNumericLablesForRegression(features, trainingFeaturesMeta, validationtNumberOfRecordsInstances); 
 		
 	}
 	
 	public void loadTestData() throws Exception {
 		Instances testAlgebraFeatureInstances = WekaUtils.loadCSV(config.getTestAlgebraFeaturesFile());
 		Instances testSimVecFeatureInstances = WekaUtils.loadCSV(config.getTestSimilarityVectorFeatureFile());
-		Instances testExecutionTimeInstances = WekaUtils.loadCSV(config.getTestQueryExecutionTimesFile());
+		Instances testNumberOfRecordsInstances = WekaUtils.loadCSV(config.getTestNumberOfRecordsFile());
 		
 		Instances features = WekaUtils.refineInstances(testAlgebraFeatureInstances, testSimVecFeatureInstances,trainingFeaturesMeta);
 		//WekaUtils.refineInstances(algebraInstances, simVecInstances, meta)
 		
 		//Instances features = featuresMeta.getInstances();
-		testInstances = WekaUtils.addNumericLablesForRegression(features, trainingFeaturesMeta, testExecutionTimeInstances); 
+		testInstances = WekaUtils.addNumericLablesForRegression(features, trainingFeaturesMeta, testNumberOfRecordsInstances); 
 		
 	}
 	
@@ -191,21 +188,10 @@ public class QueryExecutionTimePredictorKNN {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		Stopwatch watch = new Stopwatch();
-		QueryExecutionTimePredictorKNN predictor = new QueryExecutionTimePredictorKNN();
+		NumberOfResultsPredictorKNN predictor = new NumberOfResultsPredictorKNN();
 		predictor.loadData();
-		
-		watch.start();
 		predictor.trainKNNRegression();
-		watch.stop();
-		System.out.println("Total training time k-NN + algebra + graph pattern: "+watch.elapsed(TimeUnit.MILLISECONDS)+" ms");
 		predictor.crossValidation();
-		
-		watch.reset();
-        watch.start();
 		predictor.testModel();
-        watch.stop();
-        System.out.println("Total prediction time for test dataset k-NN + algebra + graph pattern: "+watch.elapsed(TimeUnit.MILLISECONDS)+" ms");
-		
 	}
 }
